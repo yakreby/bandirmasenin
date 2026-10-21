@@ -1,0 +1,20 @@
+{
+  "slug": "edincik-yolu-dere-kenari",
+  "title": "Dere kenarı, köprü altı",
+  "city": "bandirma",
+  "district": "Edincik yolu",
+  "kind": "dere",
+  "coords": [40.3392, 27.9876],
+  "status": "tespit_edildi",
+  "summary": "Köprü altında inşaat ve ev atığı. Yol kenarı trafiğe açık, gönüllüyle değil yetkili ekiple temizlenmeli.",
+  "demo": true,
+  "visits": [
+    {
+      "date": "2026-11-08",
+      "kind": "kontrol",
+      "volunteers": 1,
+      "photos": { "before": "/demo/dere-before.svg" },
+      "notes": "Yalnızca tespit ve fotoğraf. Belediyeye konum ve görsel iletildi."
+    }
+  ]
+}

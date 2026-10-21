@@ -1,0 +1,16 @@
+# Bandırma Senin
+
+> Bandırma'da çevre temizliği ve kamusal alan iyileştirme çalışmalarını koordinatlı harita üzerinde, önce/sonra fotoğrafı ve tartılmış atık miktarıyla belgeleyen bağımsız bir yerel girişim.
+
+## Sayfalar
+
+- [Ana sayfa ve harita](https://bandirmasenin.com/): Tüm noktalar, durumları ve toplamlar.
+- [Katıl](https://bandirmasenin.com/katil): Pazar temizliklerine katılım, güvenlik kuralları.
+- [Hakkında](https://bandirmasenin.com/hakkinda): Yöntem, ilkeler, destekçi olmak.
+- Nokta kayıtları: https://bandirmasenin.com/nokta/{slug}
+
+## Veri ilkeleri
+
+- Atık miktarları kantarla tartılır; göz kararı tahminler ayrı işaretlenir.
+- Her temizlikten 30 gün sonra aynı açıdan kontrol fotoğrafı çekilir.
+- "Örnek kayıt" damgalı noktalar arayüz gösterimi içindir, gerçek çalışma değildir ve toplamlara girmez.

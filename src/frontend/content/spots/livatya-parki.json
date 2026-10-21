@@ -1,0 +1,28 @@
+{
+  "slug": "livatya-parki",
+  "title": "Mahalle parkı, çocuk oyun alanı çevresi",
+  "city": "bandirma",
+  "district": "Livatya mahallesi",
+  "kind": "park",
+  "coords": [40.3478, 27.9688],
+  "status": "tamamlandi",
+  "summary": "Oyun alanının arkasındaki çalılıkta birikmiş pet şişe ve ambalaj. Park içinde çöp kutusu yok, en yakını 80 metre ileride.",
+  "recheckDue": "2026-12-01",
+  "demo": true,
+  "visits": [
+    {
+      "date": "2026-11-01",
+      "kind": "temizlik",
+      "volunteers": 4,
+      "team": "Kurucu ekip ve 2 mahalleli",
+      "photos": { "before": "/demo/park-before.svg", "after": "/demo/park-after.svg" },
+      "weighings": [
+        { "material": "plastik", "kg": 5.2, "method": "tarti" },
+        { "material": "kagit", "kg": 1.8, "method": "tarti" },
+        { "material": "organik", "kg": 4.0, "method": "tahmin" }
+      ],
+      "deliveredTo": "Bandırma Belediyesi Temizlik İşleri (ayrıştırılmış)",
+      "notes": "Kalıcı çözüm için parka çöp kutusu konması belediyeye önerildi."
+    }
+  ]
+}

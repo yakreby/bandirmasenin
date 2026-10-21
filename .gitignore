@@ -1,0 +1,38 @@
+# ============================================================
+# Bandırma Senin — root .gitignore (.NET 8 API + Next.js frontend)
+# ============================================================
+
+# ----- Sırlar (asla repoya girmez) -----
+# Bağlantı dizgisi ve yönetici anahtarı bu dosyalarda. *.example şablonları izlenir.
+appsettings.*.local.json
+!appsettings.*.local.json.example
+
+# Frontend yerel ortam dosyaları (.env.example izlenir)
+src/frontend/.env
+src/frontend/.env.local
+src/frontend/.env.*.local
+
+# ----- .NET -----
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+.vs/
+artifacts/
+
+# ----- Node / Next.js -----
+node_modules/
+src/frontend/.next/
+src/frontend/out/
+src/frontend/.vercel
+src/frontend/next-env.d.ts
+*.tsbuildinfo
+npm-debug.log*
+
+# ----- Editör / OS -----
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.pem

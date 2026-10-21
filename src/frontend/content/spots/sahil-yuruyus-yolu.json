@@ -1,0 +1,28 @@
+{
+  "slug": "sahil-yuruyus-yolu",
+  "title": "Sahil yürüyüş yolu, kayalık kıyı",
+  "city": "bandirma",
+  "district": "Paşakent mevkii",
+  "kind": "sahil",
+  "coords": [40.3562, 27.9605],
+  "status": "yeniden_kontrol_edilecek",
+  "summary": "Yürüyüş yolunun denize bakan kayalık kıyısında rüzgârla birikmiş ambalaj atığı. Rüzgâr yönü nedeniyle her lodosta yeniden doluyor.",
+  "recheckDue": "2026-11-22",
+  "demo": true,
+  "visits": [
+    {
+      "date": "2026-10-25",
+      "kind": "temizlik",
+      "volunteers": 2,
+      "team": "Kurucu ekip",
+      "photos": { "before": "/demo/sahil-before.svg", "after": "/demo/sahil-after.svg" },
+      "weighings": [
+        { "material": "plastik", "kg": 9.4, "method": "tarti" },
+        { "material": "cam", "kg": 3.1, "method": "tarti" },
+        { "material": "diger", "kg": 2.0, "method": "tahmin" }
+      ],
+      "deliveredTo": "Bandırma Belediyesi Temizlik İşleri (ayrıştırılmış)",
+      "notes": "Kayalık arasına sıkışmış ipler ve ağ parçaları çıkarılamadı, belediyeye bildirildi."
+    }
+  ]
+}

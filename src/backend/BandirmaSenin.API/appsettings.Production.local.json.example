@@ -1,0 +1,9 @@
+{
+  "_comment": "Bu dosyayı appsettings.Production.local.json olarak kopyala ve şifreyi gir. .local.json repoya girmez.",
+  "ConnectionStrings": {
+    "Default": "Server=77.245.159.112;Database=bandirmasenin_db;User Id=bandirmasenin_user;Password=BURAYA_SIFRE;TrustServerCertificate=True;Encrypt=True;"
+  },
+  "Admin": {
+    "ApiKey": "uzun-rastgele-bir-anahtar"
+  }
+}
