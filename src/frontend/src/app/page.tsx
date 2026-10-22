@@ -172,7 +172,7 @@ export default async function HomePage() {
               <div className="sponsor" key={sp.id}>
                 <h3>
                   {sp.url ? (
-                    <a href={sp.url} title={sp.name} rel="noopener">
+                    <a href={sp.url} title={sp.name} target="_blank" rel="noopener noreferrer">
                       {sp.name}
                     </a>
                   ) : (

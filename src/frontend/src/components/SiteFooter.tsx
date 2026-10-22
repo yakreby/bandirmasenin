@@ -26,7 +26,7 @@ export default function SiteFooter({
               </p>
               {supporter && (
                 <p className="ftr__supporter">
-                  <a href={supporter.url} title={`${supporter.name} web sitesi`} rel="noopener">
+                  <a href={supporter.url} title={`${supporter.name} web sitesi`} target="_blank" rel="noopener noreferrer">
                     {supporter.name}
                   </a>{" "}
                   desteğiyle.
@@ -53,7 +53,7 @@ export default function SiteFooter({
           <span>
             © <Year /> {name}
           </span>
-          <a href="https://limanyazilim.com" title="Liman Yazılım" rel="noopener" className="ftr__liman">
+          <a href="https://limanyazilim.com" title="Liman Yazılım" target="_blank" rel="noopener noreferrer" className="ftr__liman">
             Liman Yazılım tarafından <Heart size={13} className="ftr__heart" aria-label="sevgi" /> ile
             geliştirildi
           </a>
