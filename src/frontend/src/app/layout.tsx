@@ -5,6 +5,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import BackToTop from "@/components/BackToTop";
 import CookieConsent from "@/components/CookieConsent";
+import Analytics from "@/components/Analytics";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
@@ -83,9 +84,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
         <SiteHeader name={SITE.name} />
         {children}
-        <SiteFooter name={SITE.name} email={SITE.contactEmail} />
+        <SiteFooter name={SITE.name} email={SITE.contactEmail} supporter={SITE.supporter} />
         <BackToTop />
         <CookieConsent />
+        <Analytics id={SITE.gaId} />
       </body>
     </html>
   );

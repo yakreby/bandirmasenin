@@ -1,8 +1,17 @@
 import Link from "next/link";
+import { Heart } from "lucide-react";
 import Logo from "./Logo";
 import Year from "./Year";
 
-export default function SiteFooter({ name, email }: { name: string; email: string }) {
+export default function SiteFooter({
+  name,
+  email,
+  supporter,
+}: {
+  name: string;
+  email: string;
+  supporter?: { name: string; url: string };
+}) {
   return (
     <footer className="ftr">
       <div className="wrap">
@@ -15,6 +24,14 @@ export default function SiteFooter({ name, email }: { name: string; email: strin
                 Bağımsız bir yerel girişim. Haritadaki her kayıt fotoğraf ve tartıyla belgelenir;
                 hiçbir kurumun reklam alanı değildir.
               </p>
+              {supporter && (
+                <p className="ftr__supporter">
+                  <a href={supporter.url} title={`${supporter.name} web sitesi`} rel="noopener">
+                    {supporter.name}
+                  </a>{" "}
+                  desteğiyle.
+                </p>
+              )}
             </div>
           </div>
           <nav className="ftr__nav" aria-label="Alt menü">
@@ -36,8 +53,9 @@ export default function SiteFooter({ name, email }: { name: string; email: strin
           <span>
             © <Year /> {name}
           </span>
-          <a href="https://limanyazilim.com" title="Liman Yazılım" rel="noopener">
-            Liman Yazılım tarafından geliştirildi
+          <a href="https://limanyazilim.com" title="Liman Yazılım" rel="noopener" className="ftr__liman">
+            Liman Yazılım tarafından <Heart size={13} className="ftr__heart" aria-label="sevgi" /> ile
+            geliştirildi
           </a>
         </div>
       </div>

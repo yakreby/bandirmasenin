@@ -2,30 +2,30 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
-const KEY = "bs-cookie-consent";
+import { CONSENT_EVENT, CONSENT_KEY, type Consent } from "./consent";
 
 /**
- * Sitenin kendi onay bileşeni. Şu an analitik veya pazarlama çerezi yazılmıyor;
- * ileride eklenirse yalnızca onaydan sonra yüklenir (consent === "all").
+ * Sitenin kendi onay bileşeni. Analitik (Google Analytics) yalnızca "Kabul et" sonrası yüklenir;
+ * tercih tarayıcının yerel depolamasında tutulur, sunucuya gitmez.
  */
 export default function CookieConsent() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     try {
-      if (!localStorage.getItem(KEY)) setShow(true);
+      if (!localStorage.getItem(CONSENT_KEY)) setShow(true);
     } catch {
       /* özel pencere vb. */
     }
   }, []);
 
-  const decide = (value: "necessary" | "all") => {
+  const decide = (value: Consent) => {
     try {
-      localStorage.setItem(KEY, value);
+      localStorage.setItem(CONSENT_KEY, value);
     } catch {
       /* yoksay */
     }
+    window.dispatchEvent(new CustomEvent<Consent>(CONSENT_EVENT, { detail: value }));
     setShow(false);
   };
 
@@ -34,8 +34,8 @@ export default function CookieConsent() {
   return (
     <div className="cookie" role="dialog" aria-live="polite" aria-label="Çerez bildirimi">
       <p>
-        Bu site yalnızca çalışması için gereken verileri tarayıcınızda tutar; analitik veya reklam
-        çerezi kullanmaz. Harita karoları OpenStreetMap sunucularından yüklenir.{" "}
+        Siteyi nasıl kullandığınızı anlamak için Google Analytics kullanıyoruz; yalnızca kabul
+        ederseniz yüklenir. Reklam çerezi yok. Harita karoları OpenStreetMap sunucularından gelir.{" "}
         <Link href="/cerez-politikasi" title="Çerez politikasını oku">
           Ayrıntılar
         </Link>
@@ -45,7 +45,7 @@ export default function CookieConsent() {
           Yalnızca gerekli
         </button>
         <button type="button" className="btn btn--primary" onClick={() => decide("all")}>
-          Tamam
+          Kabul et
         </button>
       </div>
     </div>

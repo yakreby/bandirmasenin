@@ -71,4 +71,8 @@ export interface SiteContent {
   tagline: string;
   city: { name: string; center: [number, number]; zoom: number };
   contactEmail: string;
+  /** Google Analytics 4 ölçüm kimliği; boşsa analitik hiç yüklenmez. */
+  gaId?: string;
+  /** Footer'daki "… desteğiyle" satırı. Kaldırmak için alanı sil. */
+  supporter?: { name: string; url: string };
 }

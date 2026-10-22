@@ -930,6 +930,32 @@ img {
   color: var(--c-ink-3);
 }
 
+.ftr__supporter {
+  margin-top: 10px;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+
+.ftr__supporter a {
+  color: var(--c-leaf-deep);
+}
+
+.ftr__liman {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.ftr__liman:hover {
+  text-decoration: underline;
+}
+
+.ftr__heart {
+  color: var(--c-rust);
+  fill: var(--c-rust);
+}
+
 /* ---------- back to top ---------- */
 
 .totop {

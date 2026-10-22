@@ -74,7 +74,8 @@ Bu liste varsayılandır; aksi belirtilmedikçe hepsi uygulanır. Bir kuralı bi
 
 ## Çerez / KVKK
 - Sitenin kendi çerez onay bileşeni (`CookieConsent`), çerez politikası sayfası (/cerez-politikasi) ve ondan link.
-- Onay verilmeden analitik/pazarlama çerezi yazılmaz (şu an hiç yok).
+- Onay verilmeden analitik/pazarlama çerezi yazılmaz. Google Analytics (`Analytics` bileşeni, kimlik `content/site.json` → `gaId`)
+  yalnızca "Kabul et" sonrası yüklenir. gtag.js Google alanından gelir; "CDN yok" kuralının bilinçli tek istisnasıdır.
 
 ## Backend (.NET)
 - Özel `ErrorHandlerMiddleware` (ProblemDetails). 40x/50x için `UseStatusCodePages` ProblemDetails döner (API olduğu için HTML sayfa yok).

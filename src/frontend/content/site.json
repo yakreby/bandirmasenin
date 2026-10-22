@@ -1,6 +1,18 @@
 {
   "name": "Bandırma Senin",
   "tagline": "Şehrine sahip çık. Değişimi gör.",
-  "city": { "name": "Bandırma", "center": [40.352, 27.975], "zoom": 13 },
-  "contactEmail": "merhaba@bandirmasenin.com"
+  "city": {
+    "name": "Bandırma",
+    "center": [
+      40.352,
+      27.975
+    ],
+    "zoom": 13
+  },
+  "contactEmail": "merhaba@bandirmasenin.com",
+  "gaId": "G-PQ535998KS",
+  "supporter": {
+    "name": "Formex",
+    "url": "https://formexgroup.com"
+  }
 }
