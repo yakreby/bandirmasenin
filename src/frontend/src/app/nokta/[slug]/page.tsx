@@ -27,6 +27,9 @@ const RECHECK = { temiz: "Temiz kalmış", kismen: "Kısmen kirlenmiş", tekrar_
 
 export async function generateStaticParams() {
   const spots = await fetchSpots();
+  // Next 16 (cacheComponents) en az bir parametre ister. Veritabanı boşken ya da derleme anında API
+  // yokken yer tutucu döner; sayfa onu 404'e çevirir. Gerçek slug'lar istek anında üretilir.
+  if (spots.length === 0) return [{ slug: "henuz-kayit-yok" }];
   return spots.map((s) => ({ slug: s.slug }));
 }
 

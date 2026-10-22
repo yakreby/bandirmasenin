@@ -138,6 +138,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseResponseCaching();
 app.MapControllers();
+app.MapGet("/", () => Results.Ok(new { name = "Bandırma Senin API", health = "/api/health", spots = "/api/spots" }))
+    .ExcludeFromDescription();
 
 // Her ortamda: roller ve (ayarlıysa) ilk yönetici. Geliştirmede ayrıca migration ve örnek veri.
 {
