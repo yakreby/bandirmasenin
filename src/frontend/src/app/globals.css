@@ -1,29 +1,34 @@
-/* Bandırma Senin — tek stil dosyası (ilk sürüm). Renkler Marmara kıyısından: deniz, kum, yosun. */
+/* Bandırma Senin — tek stil dosyası. Renkler: yaprak yeşili (eylem), orman (derinlik), deniz (harita), kum. */
 
 :root {
-  --c-paper: #f4f6f2;
+  --c-paper: #f3f6f1;
   --c-white: #ffffff;
-  --c-ink: #15262c;
-  --c-ink-2: #4c5e64;
-  --c-ink-3: #7a8a90;
-  --c-line: #d5dcd8;
+  --c-ink: #14241c;
+  --c-ink-2: #4a5c53;
+  --c-ink-3: #78877f;
+  --c-line: #d3dcd4;
+  --c-leaf: #2e7d4f;
+  --c-leaf-deep: #205c39;
+  --c-leaf-wash: #e3f0e6;
+  --c-forest: #163a2b;
+  --c-lime: #c6ea7a;
+  --c-kelp: #2e7d4f;
+  --c-kelp-wash: #e3f0e6;
   --c-sea: #1e6b74;
   --c-sea-deep: #11474e;
   --c-sea-wash: #e3eef0;
   --c-sand: #e8e2d4;
   --c-sand-wash: #f3efe6;
-  --c-kelp: #4d7a2f;
-  --c-kelp-wash: #e6efdd;
   --c-amber: #d59a2a;
   --c-rust: #b4452b;
   --c-rust-wash: #f6e4df;
   --c-slate: #6e8089;
 
-  --font-display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
+  --font-display: var(--font-gabarito), "Gabarito", system-ui, sans-serif;
   --font-body: var(--font-public), "Public Sans", system-ui, sans-serif;
 
   --radius: 6px;
-  --radius-lg: 12px;
+  --radius-lg: 14px;
   --gutter: 16px;
   --measure: 62ch;
   --header-h: 56px;
@@ -74,7 +79,7 @@ body {
 }
 
 ::selection {
-  background: var(--c-sea);
+  background: var(--c-leaf);
   color: var(--c-white);
 }
 
@@ -88,17 +93,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #b8c4bf;
+  background: #b5c3b9;
   border-radius: 5px;
   border: 2px solid var(--c-paper);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--c-slate);
+  background: var(--c-ink-3);
 }
 
 a {
-  color: var(--c-sea);
+  color: var(--c-leaf);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
@@ -106,7 +111,7 @@ a {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible {
-  outline: 2px solid var(--c-sea);
+  outline: 2px solid var(--c-leaf);
   outline-offset: 3px;
 }
 
@@ -127,29 +132,35 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   margin: 0;
 }
 
 h1 {
-  font-size: clamp(2.1rem, 6vw, 3.6rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-size: clamp(2.6rem, 7.2vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  letter-spacing: -0.02em;
 }
 
 h3 {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 p {
   margin: 0;
   max-width: var(--measure);
+}
+
+img {
+  max-width: 100%;
 }
 
 .wrap {
@@ -172,7 +183,7 @@ p {
   top: 0;
   z-index: 50;
   height: var(--header-h);
-  background: color-mix(in srgb, var(--c-paper) 88%, transparent);
+  background: color-mix(in srgb, var(--c-paper) 90%, transparent);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--c-line);
 }
@@ -192,13 +203,13 @@ p {
   color: var(--c-ink);
   text-decoration: none;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.2rem;
+  font-weight: 800;
+  font-size: 1.25rem;
   letter-spacing: -0.02em;
 }
 
 .brand .logo {
-  color: var(--c-sea);
+  color: var(--c-leaf);
 }
 
 .nav {
@@ -212,6 +223,7 @@ p {
   padding: 8px 10px;
   border-radius: var(--radius);
   font-size: 0.95rem;
+  font-weight: 500;
   transition: background 0.15s var(--ease), color 0.15s var(--ease);
 }
 
@@ -257,7 +269,7 @@ p {
   position: absolute;
   inset: 0;
   border: 0;
-  background: rgba(21, 38, 44, 0.35);
+  background: rgba(20, 36, 28, 0.4);
   opacity: 0;
   transition: opacity 0.25s var(--ease);
 }
@@ -290,8 +302,8 @@ p {
   color: var(--c-ink);
   text-decoration: none;
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
   padding: 12px 10px;
   border-radius: var(--radius);
 }
@@ -300,34 +312,135 @@ p {
   background: var(--c-white);
 }
 
-/* ---------- hero (map + intro) ---------- */
+/* ---------- hero (fotoğraf) ---------- */
 
 .hero {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  padding-top: 28px;
-  padding-bottom: 28px;
+  position: relative;
+  min-height: min(82vh, 760px);
+  display: flex;
+  align-items: flex-end;
+  color: var(--c-white);
+  background: var(--c-forest);
+  overflow: hidden;
 }
 
-@media (min-width: 960px) {
-  .hero {
-    grid-template-columns: 5fr 7fr;
-    gap: 36px;
-    padding-top: 44px;
-    padding-bottom: 44px;
-    align-items: start;
-  }
+.hero__img {
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(22, 58, 43, 0.94) 0%, rgba(22, 58, 43, 0.62) 38%, rgba(22, 58, 43, 0.12) 72%, rgba(22, 58, 43, 0.05) 100%),
+    linear-gradient(to right, rgba(22, 58, 43, 0.45), rgba(22, 58, 43, 0) 60%);
+}
+
+.hero__in {
+  position: relative;
+  padding-top: 120px;
+  padding-bottom: 96px;
+}
+
+.hero__place {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--c-lime);
+  margin-bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero h1 {
+  max-width: 12ch;
+  text-wrap: balance;
 }
 
 .hero__lead {
-  margin-top: 16px;
-  font-size: 1.1rem;
-  color: var(--c-ink-2);
+  margin-top: 22px;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.86);
+  max-width: 46ch;
+}
+
+.hero__cta {
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero__credit {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 14px;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.btn--primary {
+  background: var(--c-leaf);
+  color: var(--c-white);
+}
+
+.btn--primary:hover {
+  background: var(--c-leaf-deep);
+}
+
+.btn--lime {
+  background: var(--c-lime);
+  color: var(--c-forest);
+}
+
+.btn--lime:hover {
+  background: #d6f29a;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--c-ink);
+  border-color: var(--c-line);
+}
+
+.btn--ghost:hover {
+  background: var(--c-white);
+}
+
+.btn--light {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--c-white);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.btn--light:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ---------- toplamlar (hero'nun altına biner) ---------- */
+
+.totals {
+  position: relative;
+  z-index: 2;
+  margin-top: -52px;
 }
 
 .stats {
-  margin-top: 28px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1px;
@@ -335,9 +448,10 @@ p {
   border: 1px solid var(--c-line);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: 0 16px 48px rgba(20, 36, 28, 0.16);
 }
 
-@media (min-width: 560px) {
+@media (min-width: 640px) {
   .stats {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -345,23 +459,24 @@ p {
 
 .stat {
   background: var(--c-white);
-  padding: 14px 16px;
+  padding: 18px 20px 16px;
 }
 
 .stat__n {
   display: block;
   font-family: var(--font-display);
-  font-size: 1.9rem;
-  font-weight: 700;
+  font-size: 2.4rem;
+  font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  color: var(--c-leaf-deep);
 }
 
 .stat__l {
   display: block;
   margin-top: 6px;
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   color: var(--c-ink-2);
 }
 
@@ -376,53 +491,15 @@ p {
   padding: 10px 14px;
   border-radius: var(--radius);
   background: var(--c-sand-wash);
-}
-
-.hero__cta {
-  margin-top: 24px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 18px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: 1px solid transparent;
-  transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
-}
-
-.btn--primary {
-  background: var(--c-sea);
-  color: var(--c-white);
-}
-
-.btn--primary:hover {
-  background: var(--c-sea-deep);
-}
-
-.btn--ghost {
-  background: transparent;
-  color: var(--c-ink);
-  border-color: var(--c-line);
-}
-
-.btn--ghost:hover {
-  background: var(--c-white);
+  max-width: none;
 }
 
 /* ---------- map ---------- */
 
 .map {
   position: relative;
-  height: min(62vh, 560px);
-  min-height: 340px;
+  height: min(64vh, 620px);
+  min-height: 360px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--c-line);
@@ -476,7 +553,7 @@ p {
 
 .leaflet-popup-content-wrapper {
   border-radius: var(--radius);
-  box-shadow: 0 6px 20px rgba(21, 38, 44, 0.16);
+  box-shadow: 0 6px 20px rgba(20, 36, 28, 0.16);
 }
 
 .leaflet-popup-content {
@@ -487,7 +564,7 @@ p {
 
 .pop__t {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1rem;
   margin-bottom: 4px;
 }
@@ -500,8 +577,11 @@ p {
 /* ---------- sections ---------- */
 
 .sec {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+.sec + .sec {
   border-top: 1px solid var(--c-line);
 }
 
@@ -510,7 +590,7 @@ p {
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .sec__head p {
@@ -558,11 +638,12 @@ p {
   color: var(--c-ink);
   text-decoration: none;
   position: relative;
-  transition: border-color 0.15s var(--ease);
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
 }
 
 .card:hover {
-  border-color: var(--c-sea);
+  border-color: var(--c-leaf);
+  box-shadow: 0 8px 24px rgba(20, 36, 28, 0.08);
 }
 
 .card__top {
@@ -574,7 +655,7 @@ p {
 }
 
 .card__t {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   margin-bottom: 2px;
 }
 
@@ -595,7 +676,7 @@ p {
 
 .card__row b {
   color: var(--c-ink);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .badge {
@@ -624,6 +705,56 @@ p {
   white-space: nowrap;
 }
 
+/* ---------- Bandırma'dan fotoğraf şeridi ---------- */
+
+.strip {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 900px) {
+  .strip {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.strip figure {
+  margin: 0;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--c-sand);
+}
+
+.strip figure:first-child {
+  grid-column: span 2;
+}
+
+@media (min-width: 900px) {
+  .strip figure:first-child {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+}
+
+.strip img {
+  object-fit: cover;
+}
+
+.strip figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 28px 14px 12px;
+  color: var(--c-white);
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: linear-gradient(to top, rgba(20, 36, 28, 0.78), rgba(20, 36, 28, 0));
+}
+
 /* ---------- how it works ---------- */
 
 .steps {
@@ -640,14 +771,14 @@ p {
 
 .step {
   padding: 18px 0 0;
-  border-top: 2px solid var(--c-ink);
+  border-top: 3px solid var(--c-leaf);
 }
 
 .step__n {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: var(--c-sea);
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--c-leaf);
   margin-bottom: 8px;
 }
 
@@ -691,6 +822,32 @@ p {
   color: var(--c-ink-2);
 }
 
+/* ---------- katıl bandı ---------- */
+
+.band {
+  background: var(--c-forest);
+  color: var(--c-white);
+  padding: 56px 0;
+}
+
+.band__in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+}
+
+.band h2 {
+  color: var(--c-white);
+  max-width: 18ch;
+}
+
+.band p {
+  color: rgba(255, 255, 255, 0.78);
+  margin-top: 8px;
+}
+
 /* ---------- footer ---------- */
 
 .ftr {
@@ -720,14 +877,14 @@ p {
 }
 
 .ftr__brand .logo {
-  color: var(--c-sea);
+  color: var(--c-leaf);
   margin-top: 2px;
 }
 
 .ftr__name {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.05rem;
+  font-weight: 800;
+  font-size: 1.1rem;
   color: var(--c-ink);
 }
 
@@ -748,7 +905,7 @@ p {
 }
 
 .ftr__nav a:hover {
-  color: var(--c-sea);
+  color: var(--c-leaf);
   text-decoration: underline;
 }
 
@@ -783,7 +940,7 @@ p {
   color: var(--c-ink);
   display: grid;
   place-items: center;
-  box-shadow: 0 4px 16px rgba(21, 38, 44, 0.14);
+  box-shadow: 0 4px 16px rgba(20, 36, 28, 0.14);
   opacity: 0;
   transform: translateY(8px);
   pointer-events: none;
@@ -810,7 +967,7 @@ p {
   border: 1px solid var(--c-line);
   border-radius: var(--radius-lg);
   padding: 16px 18px;
-  box-shadow: 0 10px 30px rgba(21, 38, 44, 0.18);
+  box-shadow: 0 10px 30px rgba(20, 36, 28, 0.18);
   font-size: 0.9rem;
 }
 
@@ -861,7 +1018,7 @@ p {
 }
 
 .crumbs a:hover {
-  color: var(--c-sea);
+  color: var(--c-leaf);
   text-decoration: underline;
 }
 
@@ -873,6 +1030,10 @@ p {
 
 .detail__head {
   padding: 16px 0 20px;
+}
+
+.detail__head h1 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
 }
 
 .detail__meta {
@@ -923,7 +1084,7 @@ p {
   background: var(--c-white);
   margin-left: -1px;
   pointer-events: none;
-  box-shadow: 0 0 0 1px rgba(21, 38, 44, 0.25);
+  box-shadow: 0 0 0 1px rgba(20, 36, 28, 0.25);
 }
 
 .ba__knob {
@@ -935,7 +1096,7 @@ p {
   height: 40px;
   border-radius: 50%;
   background: var(--c-white);
-  box-shadow: 0 2px 10px rgba(21, 38, 44, 0.3);
+  box-shadow: 0 2px 10px rgba(20, 36, 28, 0.3);
   display: grid;
   place-items: center;
   pointer-events: none;
@@ -1002,8 +1163,8 @@ p {
 .fact__v {
   margin-top: 4px;
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.15rem;
+  font-weight: 700;
+  font-size: 1.2rem;
   letter-spacing: -0.01em;
 }
 
@@ -1124,8 +1285,8 @@ p {
 }
 
 .recheck--ok {
-  border-color: var(--c-kelp);
-  background: var(--c-kelp-wash);
+  border-color: var(--c-leaf);
+  background: var(--c-leaf-wash);
 }
 
 .recheck p {
@@ -1147,12 +1308,13 @@ p {
 
 .prose h1 {
   margin-bottom: 12px;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
 }
 
 .prose h2 {
   margin-top: 36px;
   margin-bottom: 10px;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
 }
 
 .prose p {

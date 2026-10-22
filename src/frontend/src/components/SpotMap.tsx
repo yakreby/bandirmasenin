@@ -13,7 +13,7 @@ import { formatKg } from "@/lib/status";
 const HEX: Record<string, string> = {
   tespit_edildi: "#6e8089",
   planlandi: "#d59a2a",
-  tamamlandi: "#4d7a2f",
+  tamamlandi: "#2e7d4f",
   yeniden_kontrol_edilecek: "#1e6b74",
   tekrar_kirlendi: "#b4452b",
 };

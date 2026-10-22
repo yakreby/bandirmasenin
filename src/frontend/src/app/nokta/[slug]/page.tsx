@@ -17,7 +17,7 @@ const MATERIAL_HEX: Record<Material, string> = {
   cam: "#6fa3ab",
   metal: "#6e8089",
   kagit: "#c9a961",
-  organik: "#4d7a2f",
+  organik: "#2e7d4f",
   diger: "#b8b0a0",
 };
 

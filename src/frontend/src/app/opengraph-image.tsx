@@ -15,8 +15,8 @@ export default function OgImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "#f4f6f2",
-          color: "#15262c",
+          background: "#f3f6f1",
+          color: "#14241c",
           fontFamily: "sans-serif",
         }}
       >
@@ -26,7 +26,7 @@ export default function OgImage() {
               width: 40,
               height: 40,
               borderRadius: 40,
-              border: "5px solid #1e6b74",
+              border: "5px solid #2e7d4f",
               display: "flex",
             }}
           />
@@ -36,11 +36,11 @@ export default function OgImage() {
           <div style={{ fontSize: 88, fontWeight: 700, letterSpacing: -3, lineHeight: 1 }}>
             Bu şehir hepimizin.
           </div>
-          <div style={{ fontSize: 34, color: "#4c5e64" }}>
+          <div style={{ fontSize: 34, color: "#4a5c53" }}>
             Temizliyoruz, tartıyoruz, bir ay sonra geri dönüp bakıyoruz.
           </div>
         </div>
-        <div style={{ fontSize: 26, color: "#1e6b74" }}>bandirmasenin.com</div>
+        <div style={{ fontSize: 26, color: "#2e7d4f" }}>bandirmasenin.com</div>
       </div>
     ),
     size,

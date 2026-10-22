@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Public_Sans } from "next/font/google";
+import { Gabarito, Public_Sans } from "next/font/google";
 import { SITE } from "@/lib/content";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -9,8 +9,8 @@ import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
 /* next/font yazı tiplerini derleme anında indirir ve siteden servis eder; tarayıcı Google'a istek atmaz. */
-const display = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const display = Gabarito({
+  variable: "--font-gabarito",
   subsets: ["latin", "latin-ext"],
   display: "swap",
 });

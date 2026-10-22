@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { MapPin } from "lucide-react";
 import { fetchSpots, fetchSponsors } from "@/lib/data";
 import { siteStats, SITE } from "@/lib/content";
 import { formatKg } from "@/lib/status";
@@ -6,58 +8,84 @@ import MapLoader from "@/components/MapLoader";
 import SpotCard from "@/components/SpotCard";
 import Reveal from "@/components/Reveal";
 
+const CITY_PHOTOS = [
+  { src: "/photos/city/shore-sunset.jpg", alt: "Bandırma kayalık kıyısında gün batımı", caption: "Kayalık kıyı, gün batımı" },
+  { src: "/photos/city/son-kursun.jpg", alt: "Son Kurşun Anıtı ve Marmara Denizi", caption: "Son Kurşun Anıtı" },
+  { src: "/photos/city/camlik.jpg", alt: "Çamlık'ta çam ağaçları arasında yürüyüş yolu", caption: "Çamlık" },
+  { src: "/photos/city/bridge-sunset.jpg", alt: "Gün batımında köprü ve balıkçı tekneleri", caption: "Köprü, akşam" },
+];
+
 export default async function HomePage() {
   const [spots, sponsors] = await Promise.all([fetchSpots(), fetchSponsors()]);
   const stats = siteStats(spots);
 
   return (
     <main>
-      <section className="wrap hero" id="harita">
-        <div>
+      <section className="hero">
+        <Image
+          src="/photos/city/bridge-lighthouse.jpg"
+          alt="Bandırma sahili: köprü, fener ve sahil parkı"
+          fill
+          priority
+          sizes="100vw"
+          className="hero__img"
+        />
+        <div className="hero__shade" aria-hidden />
+        <div className="wrap hero__in">
+          <div className="hero__place">
+            <MapPin size={16} aria-hidden />
+            Bandırma
+          </div>
           <h1>Bu şehir hepimizin.</h1>
           <p className="hero__lead">
-            Bandırma&apos;da bir noktadan başlıyoruz. Temizliyoruz, tartıyoruz, bir ay sonra geri
-            dönüp aynı açıdan bakıyoruz. Her çalışma bu haritada.
+            Bir noktadan başlıyoruz. Temizliyoruz, tartıyoruz, bir ay sonra geri dönüp aynı açıdan
+            bakıyoruz. Her çalışma haritada, fotoğraflı ve kiloyla.
           </p>
-
-          <div className={`stats${stats.demoOnly ? " stats--empty" : ""}`} aria-label="Toplamlar">
-            <div className="stat">
-              <span className="stat__n">{stats.spots}</span>
-              <span className="stat__l">nokta temizlendi</span>
-            </div>
-            <div className="stat">
-              <span className="stat__n">{formatKg(stats.kg)}</span>
-              <span className="stat__l">kg atık toplandı</span>
-            </div>
-            <div className="stat">
-              <span className="stat__n">{stats.volunteers}</span>
-              <span className="stat__l">gönüllü katıldı</span>
-            </div>
-            <div className="stat">
-              <span className="stat__n">{stats.rechecked}</span>
-              <span className="stat__l">nokta yeniden kontrol edildi</span>
-            </div>
-          </div>
-
-          {stats.demoOnly ? (
-            <p className="note">
-              Henüz gerçek bir çalışma kaydı yok. Haritadaki noktalar arayüzü göstermek için
-              hazırlanmış örnek kayıtlardır ve toplamlara girmez.
-            </p>
-          ) : (
-            <p className="note">Sayılar yalnızca tartıyla ölçülmüş ve teslim edilmiş atığı kapsar.</p>
-          )}
-
           <div className="hero__cta">
-            <Link href="/katil" className="btn btn--primary" title="Pazar temizliğine katıl">
+            <Link href="/katil" className="btn btn--lime" title="Pazar temizliğine katıl">
               Pazar günü bize katıl
             </Link>
-            <Link href="/hakkinda" className="btn btn--ghost" title="Yöntem ve ilkeler">
-              Nasıl çalışıyoruz
+            <Link href="/#harita" className="btn btn--light" title="Çalışma haritasına git">
+              Haritaya bak
             </Link>
           </div>
         </div>
+      </section>
 
+      <section className="wrap totals" aria-label="Toplamlar">
+        <div className={`stats${stats.demoOnly ? " stats--empty" : ""}`}>
+          <div className="stat">
+            <span className="stat__n">{stats.spots}</span>
+            <span className="stat__l">nokta temizlendi</span>
+          </div>
+          <div className="stat">
+            <span className="stat__n">{formatKg(stats.kg)}</span>
+            <span className="stat__l">kg atık toplandı</span>
+          </div>
+          <div className="stat">
+            <span className="stat__n">{stats.volunteers}</span>
+            <span className="stat__l">gönüllü katıldı</span>
+          </div>
+          <div className="stat">
+            <span className="stat__n">{stats.rechecked}</span>
+            <span className="stat__l">nokta yeniden kontrol edildi</span>
+          </div>
+        </div>
+        {stats.demoOnly ? (
+          <p className="note">
+            Henüz gerçek bir çalışma kaydı yok. Haritadaki noktalar arayüzü göstermek için hazırlanmış
+            örnek kayıtlardır ve toplamlara girmez.
+          </p>
+        ) : (
+          <p className="note">Sayılar yalnızca tartıyla ölçülmüş ve teslim edilmiş atığı kapsar.</p>
+        )}
+      </section>
+
+      <section className="wrap sec" id="harita">
+        <div className="sec__head">
+          <h2>Harita</h2>
+          <p>Bir noktaya dokun, kaydını aç.</p>
+        </div>
         <MapLoader spots={spots} center={SITE.city.center} zoom={SITE.city.zoom} />
       </section>
 
@@ -109,6 +137,21 @@ export default async function HomePage() {
         </div>
       </Reveal>
 
+      <Reveal as="section" className="wrap sec" id="bandirma">
+        <div className="sec__head">
+          <h2>Neyi koruduğumuz</h2>
+          <p>Bandırma, kıyısıyla ve yeşiliyle.</p>
+        </div>
+        <div className="strip">
+          {CITY_PHOTOS.map((p) => (
+            <figure key={p.src}>
+              <Image src={p.src} alt={p.alt} fill sizes="(min-width: 900px) 50vw, 100vw" />
+              <figcaption>{p.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </Reveal>
+
       <Reveal as="section" className="wrap sec" id="destek">
         <div className="sec__head">
           <h2>Destekçiler</h2>
@@ -142,6 +185,18 @@ export default async function HomePage() {
           </div>
         )}
       </Reveal>
+
+      <section className="band">
+        <div className="wrap band__in">
+          <div>
+            <h2>Pazar sabahı bir nokta, iki saat.</h2>
+            <p>Eldiven ve maşa bizden. Öğlene kalmadan bitiyor.</p>
+          </div>
+          <Link href="/katil" className="btn btn--lime" title="Pazar temizliğine katıl">
+            Katılmak istiyorum
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }
