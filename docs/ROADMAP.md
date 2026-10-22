@@ -20,7 +20,16 @@ Bütçe ve ortaklık konuşması dört Pazar sonra, veriyle.
 ## Sürümler
 
 - **v0.1 (bu commit):** harita, nokta kaydı, önce/sonra, tartı kırılımı, 30 gün kontrolü, destekçi alanı; API + SQL Server; JSON yedeği.
-- **v0.2:** yönetici paneli (giriş, nokta/ziyaret formu, fotoğraf yükleme R2), gerçek fotoğraflar, Formex destekçi kartı.
-- **v0.3:** "burası kirli" bildirimi (yönetici onayıyla yayın), "bu noktayı sahiplen", e-posta ile Pazar duyurusu.
+- **v0.1.1 (2026-10-22):** iletişim formu (API + DB), /sunum, GA onay sonrası, özel 404/500, KVKK aydınlatma,
+  canlıda API düşünce örnek veriye düşülmez, resmî toplam yalnız tartılmış kilo, demo kayıtlar noindex.
+- **v0.2 Üyelik ve yönetici paneli (sıradaki):**
+  - Hesaplar: e-posta + şifre (ASP.NET Identity), e-posta doğrulama, roller `Admin` / `Member`. Kayıt formu KVKK onayı ister.
+    Üye olmanın karşılığı: Pazar çalışmalarına davet (e-posta), WhatsApp grubuna katılım linki (onaylı üyeye gösterilir),
+    kendi katıldığı çalışmaların listesi, ileride katılım sertifikası.
+  - Yönetici paneli (`/panel`, Next, yalnız Admin): nokta/ziyaret/tartım formu, iletişim mesajları (okundu/not),
+    destekçi yönetimi, **fotoğraf onayı**: her yükleme `Pending` düşer, Admin onaylayınca yayına girer, reddedilen silinir.
+  - Fotoğraf yükleme: R2 (S3 uyumlu), API imzalı URL verir; dosya boyutu/tip sınırı; EXIF konum temizlenir; yüz görünen fotoğraf reddedilir.
+  - Üye nokta önerisi: haritadan konum seç + fotoğraf; `Pending` → Admin onayı → haritada "tespit edildi".
+- **v0.3:** "bu noktayı sahiplen", e-posta ile Pazar duyurusu, katılım sertifikası (PDF, kâğıt baskı için).
 - **v0.4:** mobil (Expo): saha girişi, kamera, GPS, tartı girişi çevrimdışı.
 - **Sonra:** ikinci şehir (Erdek, Gönen), çoklu destekçi, belediyeye aylık rapor (PDF), karbon hesabı (metodoloji doğrulanınca).

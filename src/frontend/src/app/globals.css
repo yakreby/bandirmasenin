@@ -1850,3 +1850,46 @@ img {
   color: var(--c-ink-2);
   font-size: 0.95rem;
 }
+
+.note--err {
+  background: var(--c-rust-wash);
+  color: var(--c-rust);
+}
+
+/* ---------- hata sayfaları ---------- */
+
+.errpage {
+  padding: 48px 0 72px;
+  max-width: 640px;
+}
+
+.errpage__code {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--c-leaf);
+  margin-bottom: 8px;
+}
+
+.errpage h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 12px;
+}
+
+.errpage p {
+  color: var(--c-ink-2);
+  font-size: 1.05rem;
+}
+
+.errpage__actions {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.errpage__ref {
+  margin-top: 18px;
+  font-size: 0.8rem;
+  color: var(--c-ink-3);
+}

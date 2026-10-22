@@ -86,7 +86,7 @@ export default function SpotMap({
                 <div className="pop__t">{s.title}</div>
                 <div className="pop__m">
                   {s.district} · {STATUS[s.status].label}
-                  {t.kg > 0 && <> · {formatKg(t.kg)} kg</>}
+                  {t.kgMeasured > 0 && <> · {formatKg(t.kgMeasured)} kg tartıldı</>}
                   {s.demo && <> · örnek kayıt</>}
                 </div>
                 <Link href={`/nokta/${s.slug}`} title={`${s.title} kaydını aç`}>Kaydı aç</Link>

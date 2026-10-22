@@ -55,6 +55,9 @@ export default function SiteFooter({
             <Link href="/cerez-politikasi" title="Çerez politikası">
               Çerez politikası
             </Link>
+            <Link href="/kvkk-aydinlatma" title="KVKK aydınlatma metni">
+              KVKK aydınlatma
+            </Link>
             <span>{email}</span>
           </nav>
         </div>

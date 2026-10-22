@@ -12,8 +12,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/iletisim`, changeFrequency: "yearly", priority: 0.5 },
     { url: `${BASE}/hakkinda`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/cerez-politikasi`, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${BASE}/kvkk-aydinlatma`, changeFrequency: "yearly", priority: 0.2 },
   ];
   for (const s of spots) {
+    if (s.demo) continue; // örnek kayıtlar arama motoruna gitmez
     const d = lastDate(s);
     pages.push({
       url: `${BASE}/nokta/${s.slug}`,

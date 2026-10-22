@@ -44,7 +44,7 @@ export default function JoinPage() {
         <ul>
           <li>Kapalı ayakkabı ve rahat kıyafet.</li>
           <li>Su ve şapka. Yazın sahil gölgesizdir.</li>
-          <li>Eldiven, çöp maşası ve çuval bizden.</li>
+          <li>Eldiven, çöp maşası ve çuval: her çalışma için ne gerektiği ve kimin getireceği davette yazar. Koruyucu ekipman yoksa çalışma yapılmaz.</li>
         </ul>
 
         <h2>Güvenlik kuralları</h2>

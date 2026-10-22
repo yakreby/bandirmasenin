@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 type Kind = "katilim" | "nokta_oneri" | "destek" | "diger";
@@ -135,7 +136,10 @@ export default function ContactForm({ email }: { email: string }) {
         <input id="consent" name="consent" type="checkbox" required />
         <span>
           Mesajımın ve iletişim bilgilerimin yalnızca bana dönüş yapmak amacıyla saklanmasını kabul
-          ediyorum.
+          ediyorum.{" "}
+          <Link href="/kvkk-aydinlatma" title="KVKK aydınlatma metnini oku" target="_blank">
+            Aydınlatma metni
+          </Link>
         </span>
       </label>
 

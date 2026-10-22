@@ -17,11 +17,12 @@ export default function SpotCard({ spot }: { spot: Spot }) {
       <div className="card__d">{spot.district}</div>
       <div className="card__row">
         {date && <span>{formatDate(date)}</span>}
-        {t.kg > 0 && (
+        {t.kgMeasured > 0 && (
           <span>
-            <b>{formatKg(t.kg)} kg</b> toplandı
+            <b>{formatKg(t.kgMeasured)} kg</b> tartıldı
           </span>
         )}
+        {t.kg - t.kgMeasured > 0.05 && <span>+{formatKg(t.kg - t.kgMeasured)} kg tahmin</span>}
         {t.volunteers > 0 && (
           <span>
             <b>{t.volunteers}</b> kişi

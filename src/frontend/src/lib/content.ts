@@ -53,7 +53,9 @@ export function spotTotals(spot: Spot): SpotTotals {
 
 export interface SiteStats {
   spots: number;
+  /** Yalnızca kantarla tartılmış kilo. Tahminler resmî toplama girmez. */
   kg: number;
+  kgEstimated: number;
   volunteers: number;
   rechecked: number;
   /** Tüm kayıtlar örnek veriyse true — arayüz bunu açıkça söyler */
@@ -64,15 +66,17 @@ export interface SiteStats {
 export function siteStats(spots: Spot[]): SiteStats {
   const real = spots.filter((s) => !s.demo);
   let kg = 0;
+  let kgEstimated = 0;
   let volunteers = 0;
   let rechecked = 0;
   for (const s of real) {
     const t = spotTotals(s);
-    kg += t.kg;
+    kg += t.kgMeasured;
+    kgEstimated += t.kg - t.kgMeasured;
     volunteers += t.volunteers;
     if (s.recheck) rechecked += 1;
   }
-  return { spots: real.length, kg, volunteers, rechecked, demoOnly: real.length === 0 };
+  return { spots: real.length, kg, kgEstimated, volunteers, rechecked, demoOnly: real.length === 0 };
 }
 
 export function heroPhotos(spot: Spot): { before?: string; after?: string } {

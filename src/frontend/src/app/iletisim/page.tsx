@@ -39,8 +39,8 @@ export default function ContactPage() {
           <div className="box">
             <h3>Pazar çalışmaları</h3>
             <p>
-              Yer ve saat her hafta katılımcılara e-postayla gider. Eldiven, maşa ve çuval bizden;
-              kapalı ayakkabı ve su sizden.
+              Yer, saat ve gereken ekipman her hafta katılımcılara e-postayla gider. Kapalı ayakkabı
+              ve su sizden.
             </p>
           </div>
           <div className="box">

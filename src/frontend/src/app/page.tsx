@@ -190,7 +190,7 @@ export default async function HomePage() {
         <div className="wrap band__in">
           <div>
             <h2>Pazar sabahı bir nokta, iki saat.</h2>
-            <p>Eldiven ve maşa bizden. Öğlene kalmadan bitiyor.</p>
+            <p>Yer, saat ve ekipman davette yazar. Öğlene kalmadan bitiyor.</p>
           </div>
           <Link href="/katil" className="btn btn--lime" title="Pazar temizliğine katıl">
             Katılmak istiyorum

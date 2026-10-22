@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { fetchSpot, fetchSpots, fetchSponsors } from "@/lib/data";
+import { fetchSpotResult, fetchSpots, fetchSponsors } from "@/lib/data";
 import { heroPhotos, lastDate, spotTotals } from "@/lib/content";
 import { formatDate, formatKg, KIND, MATERIAL, STATUS } from "@/lib/status";
 import type { Material } from "@/lib/types";
@@ -31,13 +32,15 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const spot = await fetchSpot(slug);
+  const { data: spot } = await fetchSpotResult(slug);
   if (!spot) return {};
   const t = spotTotals(spot);
-  const desc = `${spot.district}. ${STATUS[spot.status].label}${t.kg > 0 ? `, ${formatKg(t.kg)} kg atık toplandı` : ""}. ${spot.summary}`;
+  const desc = `${spot.district}. ${STATUS[spot.status].label}${t.kgMeasured > 0 ? `, ${formatKg(t.kgMeasured)} kg atık tartıldı` : ""}. ${spot.summary}`;
   return {
-    title: spot.title,
+    title: spot.demo ? `${spot.title} (örnek kayıt)` : spot.title,
     description: desc,
+    // Örnek kayıtlar arama motoruna girmez; gerçek çalışmalarla karışmasın.
+    robots: spot.demo ? { index: false, follow: false } : undefined,
     alternates: { canonical: `/nokta/${spot.slug}` },
     openGraph: {
       title: `${spot.title}, ${spot.district}`,
@@ -50,7 +53,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function SpotPage({ params }: Props) {
   const { slug } = await params;
-  const spot = await fetchSpot(slug);
+  const { data: spot, error } = await fetchSpotResult(slug);
+  if (error) {
+    return (
+      <main className="wrap">
+        <article className="prose">
+          <h1>Kayıt şu anda alınamıyor.</h1>
+          <p className="lead">Veri bağlantısı geçici olarak kesik. Birazdan tekrar deneyin; örnek veri gösterilmez.</p>
+          <p>
+            <Link href="/" className="btn btn--primary" title="Ana sayfaya dön">
+              Haritaya dön
+            </Link>
+          </p>
+        </article>
+      </main>
+    );
+  }
   if (!spot) notFound();
 
   const sponsors = await fetchSponsors();
