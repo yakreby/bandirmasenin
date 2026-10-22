@@ -1,43 +1,43 @@
 using System.Security.Cryptography;
 using System.Text;
+using BandirmaSenin.Domain.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace BandirmaSenin.API.Security;
 
 /// <summary>
-/// Yazma uçları için basit anahtar denetimi: <c>X-Admin-Key</c> başlığı <c>Admin:ApiKey</c> ayarıyla eşleşmeli.
-/// Ayar boşsa yazma uçları tamamen kapalıdır. Yönetici paneli geldiğinde gerçek kimlik doğrulamayla değişir.
+/// Yazma uçları için yetki: ya giriş yapmış bir <c>Admin</c> kullanıcı (JWT), ya da <c>X-Admin-Key</c>
+/// başlığı <c>Admin:ApiKey</c> ayarıyla eşleşir (betikler, Swagger). Anahtar boşsa yalnız Admin rolü geçer.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
 public sealed class AdminKeyAttribute : Attribute, IAsyncAuthorizationFilter
 {
     public Task OnAuthorizationAsync(AuthorizationFilterContext ctx)
     {
-        var expected = ctx.HttpContext.RequestServices.GetRequiredService<IConfiguration>()["Admin:ApiKey"];
-        if (string.IsNullOrWhiteSpace(expected))
-        {
-            ctx.Result = Problem(ctx, 403, "Yazma uçları kapalı", "Admin:ApiKey tanımlı değil.");
+        var user = ctx.HttpContext.User;
+        if (user.Identity?.IsAuthenticated == true && user.IsInRole(AppRoles.Admin))
             return Task.CompletedTask;
-        }
 
+        var expected = ctx.HttpContext.RequestServices.GetRequiredService<IConfiguration>()["Admin:ApiKey"];
         var given = ctx.HttpContext.Request.Headers["X-Admin-Key"].ToString();
-        var a = Encoding.UTF8.GetBytes(given);
-        var b = Encoding.UTF8.GetBytes(expected);
-        if (a.Length != b.Length || !CryptographicOperations.FixedTimeEquals(a, b))
+        if (!string.IsNullOrWhiteSpace(expected) && !string.IsNullOrEmpty(given))
         {
-            ctx.Result = Problem(ctx, 401, "Yetkisiz", "X-Admin-Key başlığı eksik ya da hatalı.");
+            var a = Encoding.UTF8.GetBytes(given);
+            var b = Encoding.UTF8.GetBytes(expected);
+            if (a.Length == b.Length && CryptographicOperations.FixedTimeEquals(a, b))
+                return Task.CompletedTask;
         }
-        return Task.CompletedTask;
-    }
 
-    private static ObjectResult Problem(AuthorizationFilterContext ctx, int status, string title, string detail) =>
-        new(new ProblemDetails
+        var status = user.Identity?.IsAuthenticated == true ? 403 : 401;
+        ctx.Result = new ObjectResult(new ProblemDetails
         {
             Status = status,
-            Title = title,
-            Detail = detail,
+            Title = status == 403 ? "Yetki yok" : "Giriş gerekli",
+            Detail = status == 403 ? "Bu işlem için yönetici yetkisi gerekir." : "Yönetici girişi ya da X-Admin-Key başlığı gerekir.",
             Instance = ctx.HttpContext.Request.Path,
         })
         { StatusCode = status };
+        return Task.CompletedTask;
+    }
 }

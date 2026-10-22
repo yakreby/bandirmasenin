@@ -1,14 +1,17 @@
-using System.IO.Compression;
-using System.Text.Json;
-using System.Threading.RateLimiting;
-using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.RateLimiting;
-using System.Text.Json.Serialization;
+using System.Text;
 using BandirmaSenin.API.Middleware;
+using BandirmaSenin.API.Security;
 using BandirmaSenin.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using System.IO.Compression;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +19,28 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.local.json", optional: true, reloadOnChange: true);
 
 builder.Services.AddPersistence(builder.Configuration);
+
+// Kimlik: JWT bearer. Frontend (Next) anahtarı HttpOnly çerezde tutar ve isteklere Bearer olarak ekler.
+var jwt = builder.Configuration.GetSection(JwtOptions.Section).Get<JwtOptions>() ?? new JwtOptions();
+if (string.IsNullOrWhiteSpace(jwt.Key) || jwt.Key.Length < 32)
+    throw new InvalidOperationException("Jwt:Key en az 32 karakter olmalı (appsettings.*.local.json).");
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.Section));
+builder.Services.AddSingleton<JwtTokenService>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = jwt.Issuer,
+        ValidateAudience = true,
+        ValidAudience = jwt.Audience,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key)),
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.FromMinutes(1),
+    };
+});
+builder.Services.AddAuthorization();
 
 builder.Services.AddControllers().AddJsonOptions(o =>
 {
@@ -57,6 +82,10 @@ builder.Services.AddRateLimiter(o =>
     o.AddPolicy("contact", ctx => RateLimitPartition.GetFixedWindowLimiter(
         ctx.Connection.RemoteIpAddress?.ToString() ?? "anon",
         _ => new FixedWindowRateLimiterOptions { PermitLimit = 5, Window = TimeSpan.FromMinutes(10), QueueLimit = 0 }));
+    // Kayıt ve giriş: IP başına 10 dakikada 10 deneme (kaba kuvvete karşı; hesap kilidi ayrıca var).
+    o.AddPolicy("auth", ctx => RateLimitPartition.GetFixedWindowLimiter(
+        ctx.Connection.RemoteIpAddress?.ToString() ?? "anon",
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = 10, Window = TimeSpan.FromMinutes(10), QueueLimit = 0 }));
 });
 builder.Services.Configure<ForwardedHeadersOptions>(o =>
 {
@@ -105,17 +134,26 @@ else
 app.UseResponseCompression();
 app.UseCors();
 app.UseRateLimiter();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseResponseCaching();
 app.MapControllers();
 
-// Geliştirmede migration'ı uygula ve boşsa örnek veriyi bas. Üretimde migration elle çalıştırılır.
-if (app.Environment.IsDevelopment())
+// Her ortamda: roller ve (ayarlıysa) ilk yönetici. Geliştirmede ayrıca migration ve örnek veri.
 {
     using var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await db.Database.MigrateAsync();
-    if (app.Configuration.GetValue<bool>("Seed:Demo"))
-        await scope.ServiceProvider.GetRequiredService<DbSeeder>().SeedDemoAsync();
+    var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
+    if (app.Environment.IsDevelopment())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        await db.Database.MigrateAsync();
+        if (app.Configuration.GetValue<bool>("Seed:Demo"))
+            await seeder.SeedDemoAsync();
+    }
+    await seeder.SeedIdentityAsync(
+        app.Configuration["Admin:Email"],
+        app.Configuration["Admin:Password"],
+        app.Configuration["Admin:FullName"]);
 }
 
 app.Run();

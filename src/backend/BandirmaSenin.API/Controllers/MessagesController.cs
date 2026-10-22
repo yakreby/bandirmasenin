@@ -1,10 +1,10 @@
-using System.ComponentModel.DataAnnotations;
 using BandirmaSenin.API.Security;
 using BandirmaSenin.Domain.Entities;
 using BandirmaSenin.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace BandirmaSenin.API.Controllers;
 

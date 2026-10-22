@@ -1,5 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using BandirmaSenin.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace BandirmaSenin.API.Contracts;
 

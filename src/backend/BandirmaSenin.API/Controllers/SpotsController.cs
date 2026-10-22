@@ -77,7 +77,10 @@ public class SpotsController : ControllerBase
         spot.RecheckDue = req.RecheckDue;
         spot.Recheck = req.Recheck is null ? null : new Recheck
         {
-            Date = req.Recheck.Date, Result = req.Recheck.Result, Note = req.Recheck.Note, Photo = req.Recheck.Photo,
+            Date = req.Recheck.Date,
+            Result = req.Recheck.Result,
+            Note = req.Recheck.Note,
+            Photo = req.Recheck.Photo,
         };
         spot.IsDemo = req.Demo;
 
@@ -98,7 +101,10 @@ public class SpotsController : ControllerBase
             Order = i,
             Weighings = (v.Weighings ?? new()).Select(w => new Weighing
             {
-                Id = Guid.NewGuid(), Material = w.Material, Kg = w.Kg, Method = w.Method,
+                Id = Guid.NewGuid(),
+                Material = w.Material,
+                Kg = w.Kg,
+                Method = w.Method,
             }).ToList(),
         }).ToList();
 

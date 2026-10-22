@@ -1,4 +1,6 @@
 using BandirmaSenin.Domain.Entities;
+using BandirmaSenin.Domain.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -12,11 +14,51 @@ public class DbSeeder
 {
     private readonly AppDbContext _db;
     private readonly ILogger<DbSeeder> _log;
+    private readonly RoleManager<IdentityRole<Guid>> _roles;
+    private readonly UserManager<AppUser> _users;
 
-    public DbSeeder(AppDbContext db, ILogger<DbSeeder> log)
+    public DbSeeder(AppDbContext db, ILogger<DbSeeder> log, RoleManager<IdentityRole<Guid>> roles, UserManager<AppUser> users)
     {
         _db = db;
         _log = log;
+        _roles = roles;
+        _users = users;
+    }
+
+    /// <summary>
+    /// Rolleri oluşturur; <c>Admin:Email</c> + <c>Admin:Password</c> ayarlıysa ve o e-posta yoksa ilk yöneticiyi açar.
+    /// Var olan kullanıcıya dokunmaz (şifreyi ezmez). Üretimde bir kez çalışması için yeterli.
+    /// </summary>
+    public async Task SeedIdentityAsync(string? adminEmail, string? adminPassword, string? adminName)
+    {
+        foreach (var role in new[] { AppRoles.Admin, AppRoles.Member })
+            if (!await _roles.RoleExistsAsync(role))
+                await _roles.CreateAsync(new IdentityRole<Guid> { Id = Guid.NewGuid(), Name = role });
+
+        if (string.IsNullOrWhiteSpace(adminEmail) || string.IsNullOrWhiteSpace(adminPassword)) return;
+        var email = adminEmail.Trim().ToLowerInvariant();
+        if (await _users.FindByEmailAsync(email) is not null) return;
+
+        var admin = new AppUser
+        {
+            Id = Guid.NewGuid(),
+            UserName = email,
+            Email = email,
+            EmailConfirmed = true,
+            FullName = string.IsNullOrWhiteSpace(adminName) ? "Yönetici" : adminName.Trim(),
+            Status = MembershipStatus.Approved,
+            CreatedAt = DateTime.UtcNow,
+            ApprovedAt = DateTime.UtcNow,
+            KvkkAcceptedAt = DateTime.UtcNow,
+        };
+        var res = await _users.CreateAsync(admin, adminPassword);
+        if (!res.Succeeded)
+        {
+            _log.LogWarning("İlk yönetici oluşturulamadı: {Errors}", string.Join("; ", res.Errors.Select(e => e.Description)));
+            return;
+        }
+        await _users.AddToRolesAsync(admin, new[] { AppRoles.Admin, AppRoles.Member });
+        _log.LogInformation("İlk yönetici oluşturuldu: {Email}", email);
     }
 
     public async Task SeedDemoAsync(CancellationToken ct = default)
