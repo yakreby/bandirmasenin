@@ -1,5 +1,8 @@
 using System.IO.Compression;
 using System.Text.Json;
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.RateLimiting;
 using System.Text.Json.Serialization;
 using BandirmaSenin.API.Middleware;
 using BandirmaSenin.Persistence;
@@ -45,10 +48,26 @@ builder.Services.AddResponseCaching();
 
 var origins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? Array.Empty<string>();
 builder.Services.AddCors(o => o.AddDefaultPolicy(p =>
-    p.WithOrigins(origins).AllowAnyHeader().WithMethods("GET", "PUT", "DELETE", "OPTIONS")));
+    p.WithOrigins(origins).AllowAnyHeader().WithMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")));
+
+// İletişim formu: IP başına 10 dakikada 5 mesaj. Proxy arkasında X-Forwarded-For için ForwardedHeaders gerekir.
+builder.Services.AddRateLimiter(o =>
+{
+    o.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    o.AddPolicy("contact", ctx => RateLimitPartition.GetFixedWindowLimiter(
+        ctx.Connection.RemoteIpAddress?.ToString() ?? "anon",
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = 5, Window = TimeSpan.FromMinutes(10), QueueLimit = 0 }));
+});
+builder.Services.Configure<ForwardedHeadersOptions>(o =>
+{
+    o.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    o.KnownNetworks.Clear();
+    o.KnownProxies.Clear();
+});
 
 var app = builder.Build();
 
+app.UseForwardedHeaders();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
 // Eşleşmeyen yollar ve yetki hataları da ProblemDetails döner (404/401/403 …).
@@ -85,6 +104,7 @@ else
 
 app.UseResponseCompression();
 app.UseCors();
+app.UseRateLimiter();
 app.UseResponseCaching();
 app.MapControllers();
 

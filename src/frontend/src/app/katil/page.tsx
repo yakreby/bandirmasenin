@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { SITE } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Katıl",
@@ -29,10 +29,15 @@ export default function JoinPage() {
         <h2>Nasıl katılırım</h2>
         <p>
           Bir sonraki çalışmanın yeri ve saati e-postayla paylaşılır.{" "}
-          <a href={`mailto:${SITE.contactEmail}?subject=Pazar%20temizli%C4%9Fine%20kat%C4%B1lmak%20istiyorum`} title="Katılım e-postası gönder">
-            Yazın
-          </a>
+          <Link href="/iletisim?konu=katilim" title="Katılım formunu aç">
+            Formu doldurun
+          </Link>
           , listeye ekleyelim. Yalnız gelmek de, mahalleden üç kişi getirmek de olur.
+        </p>
+        <p>
+          <Link href="/iletisim?konu=katilim" className="btn btn--primary" title="Katılım formunu aç">
+            Katılmak istiyorum
+          </Link>
         </p>
 
         <h2>Ne getirmeli</h2>
@@ -55,9 +60,12 @@ export default function JoinPage() {
 
         <h2>Bir nokta önermek</h2>
         <p>
-          Yürürken gördüğünüz bir yeri bize yazın: konum (haritadan paylaşım yeterli), bir fotoğraf
-          ve kısa bir not. Yetki durumu ve güvenlik uygunsa haritaya &ldquo;tespit edildi&rdquo;
-          olarak gireriz.
+          Yürürken gördüğünüz bir yeri{" "}
+          <Link href="/iletisim?konu=nokta" title="Nokta önerme formunu aç">
+            bize yazın
+          </Link>
+          : konum (haritadan paylaşım yeterli), bir fotoğraf ve kısa bir not. Yetki durumu ve
+          güvenlik uygunsa haritaya &ldquo;tespit edildi&rdquo; olarak gireriz.
         </p>
       </article>
     </main>

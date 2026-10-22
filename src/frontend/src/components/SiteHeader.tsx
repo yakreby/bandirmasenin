@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/#calismalar", label: "Çalışmalar", title: "Tüm çalışma kayıtları" },
   { href: "/katil", label: "Katıl", title: "Pazar temizliğine katıl" },
   { href: "/hakkinda", label: "Hakkında", title: "Bandırma Senin nedir" },
+  { href: "/iletisim", label: "İletişim", title: "Bize yazın" },
 ];
 
 export default function SiteHeader({ name }: { name: string }) {

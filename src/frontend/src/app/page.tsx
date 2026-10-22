@@ -161,9 +161,9 @@ export default async function HomePage() {
           <div className="empty">
             Bu alan ilk destekçiyi bekliyor. Ekipman, atık kabulü ya da bütçe ile katkı vermek
             isterseniz{" "}
-            <a href={`mailto:${SITE.contactEmail}`} title="Destekçi olmak için yazın">
-              yazın
-            </a>
+            <Link href="/iletisim?konu=destek" title="Destekçi olmak için formu aç">
+              bize yazın
+            </Link>
             .
           </div>
         ) : (

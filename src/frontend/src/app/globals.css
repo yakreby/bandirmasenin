@@ -175,7 +175,7 @@ img {
 
 .wrap {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   padding-left: var(--gutter);
   padding-right: var(--gutter);
@@ -1690,4 +1690,163 @@ img {
 
 .pr-foot p {
   max-width: none;
+}
+
+/* ---------- düşük enerji rozeti ---------- */
+
+.eco {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  border-radius: 999px;
+  background: var(--c-leaf-wash);
+  color: var(--c-leaf-deep);
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.eco svg {
+  flex: none;
+}
+
+.eco__sub {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--c-ink-3);
+  max-width: 52ch;
+}
+
+/* ---------- iletişim formu ---------- */
+
+.form {
+  display: grid;
+  gap: 16px;
+  max-width: 640px;
+  margin-top: 24px;
+}
+
+.form__row {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+  .form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field label {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  background: var(--c-white);
+  color: var(--c-ink);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--c-leaf);
+  outline-offset: 1px;
+  border-color: var(--c-leaf);
+}
+
+.field textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.field__hint {
+  font-size: 0.82rem;
+  color: var(--c-ink-3);
+}
+
+.check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.92rem;
+  color: var(--c-ink-2);
+}
+
+.check input {
+  margin-top: 4px;
+  accent-color: var(--c-leaf);
+}
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form__status {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+}
+
+.form__status--ok {
+  background: var(--c-leaf-wash);
+  color: var(--c-leaf-deep);
+}
+
+.form__status--err {
+  background: var(--c-rust-wash);
+  color: var(--c-rust);
+}
+
+.contact {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 1fr;
+  padding: 16px 0 56px;
+}
+
+@media (min-width: 960px) {
+  .contact {
+    grid-template-columns: 7fr 5fr;
+    align-items: start;
+  }
+}
+
+.contact__aside {
+  display: grid;
+  gap: 14px;
+}
+
+.contact__aside .box {
+  background: var(--c-white);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+}
+
+.contact__aside p {
+  margin-top: 6px;
+  color: var(--c-ink-2);
+  font-size: 0.95rem;
 }

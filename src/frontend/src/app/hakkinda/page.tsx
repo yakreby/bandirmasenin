@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { SITE } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Hakkında",
@@ -56,9 +56,9 @@ export default function AboutPage() {
         <p>
           Ekipman, ayrıştırılmış atığın kabulü, geri kazanılmış malzemeden levha ve toplama
           ünitesi ya da doğrudan bütçe. Her katkı haritada, katkı verdiği noktada görünür.{" "}
-          <a href={`mailto:${SITE.contactEmail}?subject=Destek%C3%A7i%20olmak%20istiyoruz`} title="Destekçi olmak için yazın">
-            Yazın
-          </a>
+          <Link href="/iletisim?konu=destek" title="Destekçi olmak için formu aç">
+            Bize yazın
+          </Link>
           .
         </p>
 

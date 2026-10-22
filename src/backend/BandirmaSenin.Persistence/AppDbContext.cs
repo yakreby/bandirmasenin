@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<Weighing> Weighings => Set<Weighing>();
     public DbSet<Sponsor> Sponsors => Set<Sponsor>();
     public DbSet<SpotSponsor> SpotSponsors => Set<SpotSponsor>();
+    public DbSet<ContactMessage> ContactMessages => Set<ContactMessage>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
