@@ -4,10 +4,12 @@ import { SITE } from "@/lib/content";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import BackToTop from "@/components/BackToTop";
+import BottomNav from "@/components/BottomNav";
 import CookieConsent from "@/components/CookieConsent";
 import Analytics from "@/components/Analytics";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
+import "./ui-members.css";
 
 /* next/font yazı tiplerini derleme anında indirir ve siteden servis eder; tarayıcı Google'a istek atmaz. */
 const display = Gabarito({
@@ -85,6 +87,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader name={SITE.name} />
         {children}
         <SiteFooter name={SITE.name} email={SITE.contactEmail} supporter={SITE.supporter} />
+        <BottomNav />
         <BackToTop />
         <CookieConsent />
         <Analytics id={SITE.gaId} />

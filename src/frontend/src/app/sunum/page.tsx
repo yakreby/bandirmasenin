@@ -27,11 +27,13 @@ function Arrow() {
 
 export default function PresentationPage() {
   return (
-    <main>
+    <main className="pr-page">
       <header className="pr-hero">
+        <div className="pr-rings" aria-hidden />
         <div className="wrap">
           <div className="pr-hero__tag">Bandırma Senin</div>
           <h1>Bu şehir hepimizin.</h1>
+          <div className="pr-hero__rule" aria-hidden />
           <p>
             Pazar sabahları Bandırma&apos;da bir noktayı temizliyoruz, topladığımızı tartıyoruz, teslim
             ediyoruz ve bir ay sonra aynı yere geri dönüp bakıyoruz. Her şey haritada, fotoğraflı ve
@@ -48,6 +50,7 @@ export default function PresentationPage() {
       <div className="wrap">
         <section className="pr-sec">
           <div className="pr-head">
+            <div className="pr-eyebrow">01 / Amaç</div>
             <h2>Bu proje ne?</h2>
           </div>
           <div className="pr-stack">
@@ -88,6 +91,7 @@ export default function PresentationPage() {
 
         <section className="pr-sec">
           <div className="pr-head">
+            <div className="pr-eyebrow">02 / Neden Formex</div>
             <h2>Formex&apos;le neden?</h2>
             <p>Formex&apos;in fabrikada yaptığı işi sokağa taşıyoruz. Döngü kapanıyor.</p>
           </div>
@@ -104,7 +108,7 @@ export default function PresentationPage() {
               <div className="pr-node"><b>Geri aynı noktaya</b><span>Levha, kutu, çuval halkası</span></div>
             </div>
             <div className="pr-cols">
-              <div className="pr-box pr-box--hi">
+              <div className="pr-box pr-box--dark">
                 <h3>Formex&apos;e ne kazandırır</h3>
                 <p>
                   Bandırma&apos;da sahada görünür, ölçülebilir sosyal etki. Haritadaki her nokta
@@ -126,6 +130,7 @@ export default function PresentationPage() {
 
         <section className="pr-sec">
           <div className="pr-head">
+            <div className="pr-eyebrow">03 / Dört Pazar</div>
             <h2>Nasıl başlıyoruz?</h2>
             <p>Dört Pazar, iki kişi, bir harita. Büyük organizasyon yok.</p>
           </div>
@@ -140,6 +145,7 @@ export default function PresentationPage() {
 
         <section className="pr-sec">
           <div className="pr-head">
+            <div className="pr-eyebrow">04 / İstekler</div>
             <h2>Formex&apos;ten ne istiyoruz?</h2>
             <p>Pilot için para değil, malzeme ve üç karar.</p>
           </div>
@@ -182,6 +188,7 @@ export default function PresentationPage() {
 
         <section className="pr-sec">
           <div className="pr-head">
+            <div className="pr-eyebrow">05 / Bütçe</div>
             <h2>Ne kadar bütçe gerekiyor?</h2>
             <p>Yaklaşık rakamlar, Türkiye&apos;deki satış ilanlarından. Bağlayıcı teklif değil, büyüklüğü göstermek için.</p>
           </div>
@@ -221,6 +228,7 @@ export default function PresentationPage() {
 
         <section className="pr-sec">
           <div className="pr-head">
+            <div className="pr-eyebrow">06 / İşbirliği</div>
             <h2>Belediye ve üniversiteyle nasıl çalışırız?</h2>
           </div>
           <div className="pr-cols">
@@ -255,6 +263,7 @@ export default function PresentationPage() {
 
         <section className="pr-sec">
           <div className="pr-head">
+            <div className="pr-eyebrow">07 / İlkeler</div>
             <h2>Ölçüm ve şeffaflık kuralları</h2>
             <p>Projenin güvenilirliği bu kurallardan gelir. Hiçbiri esnemez.</p>
           </div>
@@ -270,6 +279,7 @@ export default function PresentationPage() {
 
         <section className="pr-sec">
           <div className="pr-head">
+            <div className="pr-eyebrow">08 / Yol haritası</div>
             <h2>Teknoloji nereye gidiyor?</h2>
             <p>İlk gün telefon, QR etiket ve kantar. Sonrası sahanın öğrettiğine göre.</p>
           </div>
@@ -283,9 +293,15 @@ export default function PresentationPage() {
       </div>
 
       <footer className="pr-close">
+        <div className="pr-rings" aria-hidden />
         <div className="wrap">
-          <h2>Bugün sizden istediğimiz üç &ldquo;evet&rdquo;</h2>
-          <p className="pr-close__big">Saha kiti. Toplanan plastiğin kabulü. Logo izni.</p>
+          <div className="pr-hero__tag">Karar noktası</div>
+          <h2>Bandırma&apos;da birlikte başlayalım.</h2>
+          <ul className="pr-close__list">
+            <li><span className="pr-close__num">01</span> Saha kiti için ayni destek</li>
+            <li><span className="pr-close__num">02</span> Uygun plastik için kabul değerlendirmesi</li>
+            <li><span className="pr-close__num">03</span> Logo ve işbirliği için yazılı onay</li>
+          </ul>
           <p>
             İlk dört Pazar&apos;ı kendimiz yapıyoruz, veriyle geri geliyoruz. Beğenmezseniz haritadaki
             &ldquo;Formex desteğiyle&rdquo; satırı iki dakikada kalkar. Beğenirseniz Bandırma&apos;da ilk

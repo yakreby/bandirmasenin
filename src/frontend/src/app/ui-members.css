@@ -1,0 +1,508 @@
+/* Üyelik, panel, mobil alt menü ve /sunum teması. globals.css'in devamı; layout.tsx içinde ondan sonra yüklenir. */
+
+/* ---------- header sağ blok, oturum ---------- */
+
+.hdr__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hdr__auth {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .hdr__auth {
+    display: block;
+  }
+}
+
+.auth {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.auth__ph {
+  display: inline-block;
+  width: 120px;
+  height: 36px;
+}
+
+.auth__link {
+  color: var(--c-ink-2);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.auth__link:hover {
+  background: var(--c-white);
+  color: var(--c-ink);
+}
+
+.auth__btn {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+.auth__user {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px 7px 10px;
+  border-radius: 999px;
+  background: var(--c-leaf-wash);
+  color: var(--c-leaf-deep);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* offcanvas artık body'de: tam ekran, opak panel */
+.off {
+  inset: 0;
+}
+
+.off__panel {
+  box-shadow: -12px 0 40px rgba(20, 36, 28, 0.25);
+}
+
+.off__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px 12px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.off__head .brand {
+  font-size: 1.1rem;
+}
+
+.off__auth {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--c-line);
+  display: grid;
+  gap: 4px;
+}
+
+.off__auth a {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* ---------- mobil alt menü ---------- */
+
+.bnav {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  z-index: 45;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  padding: 6px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--c-white) 94%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--c-line);
+  box-shadow: 0 10px 30px rgba(20, 36, 28, 0.18);
+}
+
+@media (min-width: 720px) {
+  .bnav {
+    display: none;
+  }
+}
+
+.bnav__i {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 8px 4px 6px;
+  border-radius: 14px;
+  color: var(--c-ink-2);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.bnav__i--on {
+  background: var(--c-leaf-wash);
+  color: var(--c-leaf-deep);
+}
+
+@media (max-width: 719px) {
+  body {
+    padding-bottom: 84px;
+  }
+  .totop {
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  }
+  .cookie {
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ---------- üyelik sayfaları ---------- */
+
+.authpage {
+  max-width: 560px;
+  padding: 16px 0 56px;
+}
+
+.authpage h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  margin-bottom: 10px;
+}
+
+.form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.form--tight {
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.account {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 1fr;
+  padding: 16px 0 56px;
+}
+
+@media (min-width: 960px) {
+  .account {
+    grid-template-columns: 7fr 5fr;
+    align-items: start;
+  }
+}
+
+.account h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+}
+
+.account .hero__lead {
+  margin-top: 16px;
+}
+
+.wa {
+  margin-top: 20px;
+}
+
+.badge--ok {
+  background: var(--c-leaf-wash);
+  color: var(--c-leaf-deep);
+}
+
+.badge--pending {
+  background: #fff3d6;
+  color: #7a5410;
+}
+
+.badge--bad {
+  background: var(--c-rust-wash);
+  color: var(--c-rust);
+}
+
+/* ---------- yönetim paneli ---------- */
+
+.panel {
+  padding: 16px 0 56px;
+  display: grid;
+  gap: 18px;
+}
+
+.panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panel__head h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--c-white);
+  border: 1px solid var(--c-line);
+}
+
+.tab {
+  border: 0;
+  background: transparent;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--c-ink-2);
+}
+
+.tab--on {
+  background: var(--c-leaf);
+  color: var(--c-white);
+}
+
+.panel__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.panel__count {
+  font-size: 0.9rem;
+  color: var(--c-ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.rows {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.row {
+  background: var(--c-white);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "main side" "actions actions";
+  }
+  .row__main {
+    grid-area: main;
+  }
+  .row__side {
+    grid-area: side;
+  }
+  .row__actions {
+    grid-area: actions;
+  }
+}
+
+.row--read {
+  opacity: 0.7;
+}
+
+.row__main {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.row__main b {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.row__sub {
+  font-size: 0.85rem;
+  color: var(--c-ink-2);
+}
+
+.row__msg {
+  margin-top: 4px;
+  white-space: pre-wrap;
+  color: var(--c-ink);
+  font-size: 0.95rem;
+}
+
+.row__note {
+  font-size: 0.85rem;
+  color: #7a5410;
+  background: #fff3d6;
+  padding: 4px 8px;
+  border-radius: 6px;
+  justify-self: start;
+}
+
+.row__side {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.row__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.btn--sm {
+  padding: 7px 12px;
+  font-size: 0.85rem;
+}
+
+/* ---------- /sunum: desteyle aynı dünya (koyu orman, krem, adaçayı, halka motifi) ---------- */
+
+.pr-page {
+  background: #f4f3ec;
+}
+
+.pr-hero,
+.pr-close {
+  position: relative;
+  overflow: hidden;
+  background: #0f2e25;
+}
+
+.pr-rings {
+  position: absolute;
+  right: -140px;
+  top: 50%;
+  width: 620px;
+  height: 620px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, transparent 0, transparent 118px, rgba(198, 234, 122, 0.08) 119px, rgba(198, 234, 122, 0.08) 121px, transparent 122px),
+    radial-gradient(circle, transparent 0, transparent 178px, rgba(255, 255, 255, 0.07) 179px, rgba(255, 255, 255, 0.07) 181px, transparent 182px),
+    radial-gradient(circle, transparent 0, transparent 238px, rgba(255, 255, 255, 0.06) 239px, rgba(255, 255, 255, 0.06) 241px, transparent 242px),
+    radial-gradient(circle, transparent 0, transparent 298px, rgba(255, 255, 255, 0.05) 299px, rgba(255, 255, 255, 0.05) 301px, transparent 302px),
+    radial-gradient(circle at 50% 50%, rgba(46, 125, 79, 0.35) 0, rgba(46, 125, 79, 0.18) 90px, transparent 160px);
+}
+
+@media (max-width: 719px) {
+  .pr-rings {
+    display: none;
+  }
+}
+
+.pr-hero .wrap,
+.pr-close .wrap {
+  position: relative;
+}
+
+.pr-hero__tag,
+.pr-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pr-hero__tag {
+  color: var(--c-lime);
+}
+
+.pr-eyebrow {
+  color: var(--c-leaf);
+  margin-bottom: 6px;
+}
+
+.pr-hero__rule {
+  width: 56px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--c-lime);
+}
+
+.pr-page .pr-box,
+.pr-page .pr-node,
+.pr-page .pr-tbl,
+.pr-page .pr-ask__item,
+.pr-page .rules li {
+  background: #ffffff;
+  border-color: #e4e6dc;
+}
+
+.pr-page .pr-box--hi,
+.pr-page .pr-node--formex {
+  background: #dfece3;
+  border-color: transparent;
+}
+
+.pr-page .pr-box--dark {
+  background: #0f2e25;
+  border-color: transparent;
+  color: #fff;
+}
+
+.pr-page .pr-box--dark h3 {
+  color: var(--c-lime);
+}
+
+.pr-page .pr-box--dark p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pr-page .pr-sec {
+  border-top-color: #e4e6dc;
+}
+
+.pr-close__list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: grid;
+  gap: 8px;
+  max-width: 640px;
+}
+
+.pr-close__list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+}
+
+.pr-close__list li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-lime);
+  flex: none;
+}
+
+.pr-close__num {
+  color: var(--c-lime);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Açık zeminli sayfalarda giriş paragrafı (hero'daki beyaz ton değil) */
+.authpage .hero__lead,
+.account .hero__lead,
+.contact .hero__lead {
+  color: var(--c-ink-2);
+}

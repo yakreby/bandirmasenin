@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
+import AuthMenu from "./AuthMenu";
 
 const LINKS = [
   { href: "/#harita", label: "Harita", title: "Çalışma haritasına git" },
@@ -16,7 +18,10 @@ const LINKS = [
 
 export default function SiteHeader({ name }: { name: string }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     setOpen(false);
@@ -34,6 +39,38 @@ export default function SiteHeader({ name }: { name: string }) {
     };
   }, [open]);
 
+  /* Offcanvas body'ye portal'lanır: header'daki backdrop-filter, fixed çocukları kendi kutusuna hapseder. */
+  const offcanvas = (
+    <div className={`off${open ? " off--open" : ""}`} id="offcanvas" aria-hidden={!open}>
+      <button
+        type="button"
+        className="off__scrim"
+        aria-label="Menüyü kapat"
+        tabIndex={open ? 0 : -1}
+        onClick={() => setOpen(false)}
+      />
+      <nav className="off__panel" aria-label="Mobil menü">
+        <div className="off__head">
+          <span className="brand">
+            <Logo />
+            {name}
+          </span>
+          <button type="button" className="burger" aria-label="Menüyü kapat" onClick={() => setOpen(false)}>
+            <X size={22} />
+          </button>
+        </div>
+        {LINKS.map((l) => (
+          <Link key={l.href} href={l.href} title={l.title} tabIndex={open ? 0 : -1}>
+            {l.label}
+          </Link>
+        ))}
+        <div className="off__auth">
+          <AuthMenu variant="panel" />
+        </div>
+      </nav>
+    </div>
+  );
+
   return (
     <header className="hdr">
       <div className="wrap hdr__in">
@@ -48,34 +85,23 @@ export default function SiteHeader({ name }: { name: string }) {
             </Link>
           ))}
         </nav>
-        <button
-          type="button"
-          className="burger"
-          aria-expanded={open}
-          aria-controls="offcanvas"
-          aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div className="hdr__right">
+          <div className="hdr__auth">
+            <AuthMenu variant="bar" />
+          </div>
+          <button
+            type="button"
+            className="burger"
+            aria-expanded={open}
+            aria-controls="offcanvas"
+            aria-label="Menüyü aç"
+            onClick={() => setOpen(true)}
+          >
+            <Menu size={22} />
+          </button>
+        </div>
       </div>
-
-      <div className={`off${open ? " off--open" : ""}`} id="offcanvas" aria-hidden={!open}>
-        <button
-          type="button"
-          className="off__scrim"
-          aria-label="Menüyü kapat"
-          tabIndex={open ? 0 : -1}
-          onClick={() => setOpen(false)}
-        />
-        <nav className="off__panel" aria-label="Mobil menü">
-          {LINKS.map((l) => (
-            <Link key={l.href} href={l.href} title={l.title} tabIndex={open ? 0 : -1}>
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-      </div>
+      {mounted ? createPortal(offcanvas, document.body) : null}
     </header>
   );
 }

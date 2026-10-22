@@ -19,7 +19,11 @@ mobile/         sonraki aşama (Expo)
 - JSON sözleşmesi `src/frontend/src/lib/types.ts` ile `BandirmaSenin.API/Contracts/SpotDtos.cs` birebir aynıdır. Enum'lar snake_case (`tespit_edildi`). Birini değiştirince diğerini de değiştir.
 - Sırlar `appsettings.{Env}.local.json` dosyasında (gitignore'lu, en son yüklenir ve her şeyi ezer). Şablon: `appsettings.Production.local.json.example`.
 - Migration: `cd src/backend && dotnet ef migrations add <Ad> -p BandirmaSenin.Persistence -s BandirmaSenin.API`. Development'ta uygulama açılışta `MigrateAsync` çalıştırır; üretimde elle.
-- Yazma uçları (`PUT/DELETE`) `X-Admin-Key` ister; `Admin:ApiKey` boşsa kapalıdır.
+- Kimlik: ASP.NET Identity + JWT (`Jwt:Key` zorunlu). Frontend JWT'yi `bs_session` HttpOnly çerezinde tutar;
+  `src/app/api/auth/[action]` (login/register/logout/me) ve `src/app/api/bs/[...path]` (oturumlu köprü) API'ye Bearer ile iletir.
+  Sayfalar statik kalır; oturum durumu istemcide (`AuthMenu`, `AccountPanel`, `AdminPanel`) okunur.
+- Yazma uçları: Admin rolü JWT'si ya da `X-Admin-Key` (betikler). Üye kaydı `Pending` düşer, yönetici `/panel`'den onaylar.
+- İlk yönetici: `Admin:Email` + `Admin:Password` (local.json) açılışta seed edilir; var olan kullanıcıya dokunmaz.
 
 ## Veri ilkeleri (ürün kuralı, kodda da korunur)
 
