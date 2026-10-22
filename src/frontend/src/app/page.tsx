@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
-import { fetchSpots, fetchSponsors } from "@/lib/data";
+import { fetchSpotsResult, fetchSponsors } from "@/lib/data";
 import { siteStats, SITE } from "@/lib/content";
 import { formatKg } from "@/lib/status";
 import MapLoader from "@/components/MapLoader";
@@ -16,8 +16,10 @@ const CITY_PHOTOS = [
 ];
 
 export default async function HomePage() {
-  const [spots, sponsors] = await Promise.all([fetchSpots(), fetchSponsors()]);
+  const [result, sponsors] = await Promise.all([fetchSpotsResult(), fetchSponsors()]);
+  const spots = result.data;
   const stats = siteStats(spots);
+  const outage = result.error;
 
   return (
     <main>
@@ -53,38 +55,46 @@ export default async function HomePage() {
       </section>
 
       <section className="wrap totals" aria-label="Toplamlar">
-        <div className={`stats${stats.demoOnly ? " stats--empty" : ""}`}>
+        <div className={`stats${stats.demoOnly || outage ? " stats--empty" : ""}`}>
           <div className="stat">
-            <span className="stat__n">{stats.spots}</span>
+            <span className="stat__n">{outage ? "–" : stats.spots}</span>
             <span className="stat__l">nokta temizlendi</span>
           </div>
           <div className="stat">
-            <span className="stat__n">{formatKg(stats.kg)}</span>
-            <span className="stat__l">kg atık toplandı</span>
+            <span className="stat__n">{outage ? "–" : formatKg(stats.kg)}</span>
+            <span className="stat__l">kg atık tartıldı</span>
           </div>
           <div className="stat">
-            <span className="stat__n">{stats.volunteers}</span>
+            <span className="stat__n">{outage ? "–" : stats.volunteers}</span>
             <span className="stat__l">gönüllü katıldı</span>
           </div>
           <div className="stat">
-            <span className="stat__n">{stats.rechecked}</span>
+            <span className="stat__n">{outage ? "–" : stats.rechecked}</span>
             <span className="stat__l">nokta yeniden kontrol edildi</span>
           </div>
         </div>
-        {stats.demoOnly ? (
+        {outage ? (
+          <p className="note note--err" role="status">
+            Çalışma verileri şu anda alınamıyor. Harita ve kayıtlar bağlantı gelince görünür; bu
+            sırada örnek veri gösterilmez.
+          </p>
+        ) : stats.demoOnly ? (
           <p className="note">
             Henüz gerçek bir çalışma kaydı yok. Haritadaki noktalar arayüzü göstermek için hazırlanmış
             örnek kayıtlardır ve toplamlara girmez.
           </p>
         ) : (
-          <p className="note">Sayılar yalnızca tartıyla ölçülmüş ve teslim edilmiş atığı kapsar.</p>
+          <p className="note">
+            Toplamlar yalnızca kantarla tartılmış ve teslim edilmiş atığı kapsar
+            {stats.kgEstimated > 0.05 && <>; göz kararı tahmin edilen {formatKg(stats.kgEstimated)} kg ayrı tutulur</>}.
+          </p>
         )}
       </section>
 
       <section className="wrap sec" id="harita">
         <div className="sec__head">
           <h2>Harita</h2>
-          <p>Bir noktaya dokun, kaydını aç.</p>
+          <p>{outage ? "Bağlantı gelince noktalar görünür." : "Bir noktaya dokun, kaydını aç."}</p>
         </div>
         <MapLoader spots={spots} center={SITE.city.center} zoom={SITE.city.zoom} />
       </section>
@@ -94,7 +104,9 @@ export default async function HomePage() {
           <h2>Çalışmalar</h2>
           <p>En son çalışma en üstte.</p>
         </div>
-        {spots.length === 0 ? (
+        {outage ? (
+          <div className="empty">Kayıtlar şu anda alınamıyor. Birazdan tekrar deneyin.</div>
+        ) : spots.length === 0 ? (
           <div className="empty">Henüz kayıt yok. İlk nokta bu Pazar.</div>
         ) : (
           <div className="spots">
