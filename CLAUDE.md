@@ -23,6 +23,10 @@ mobile/         sonraki aşama (Expo)
   `src/app/api/auth/[action]` (login/register/logout/me) ve `src/app/api/bs/[...path]` (oturumlu köprü) API'ye Bearer ile iletir.
   Sayfalar statik kalır; oturum durumu istemcide (`AuthMenu`, `AccountPanel`, `AdminPanel`) okunur.
 - Yazma uçları: Admin rolü JWT'si ya da `X-Admin-Key` (betikler). Üye kaydı `Pending` düşer, yönetici `/panel`'den onaylar.
+- "İz bırak" (`/iz-birak`, `TracesController`, `TraceReport`): anonim fotoğraf + konum, `Pending` → panelde `İzler` sekmesi onaylar.
+  Fotoğraflar `IPhotoStorage` (ilk sürüm `LocalPhotoStorage`, `Uploads:*` ayarı, `wwwroot/uploads/` gitignore'lu). Bkz. docs/ARCHITECTURE.md.
+- **Form bağlamada sayı tuzağı:** sunucu kültürü tr-TR olabilir; `[FromForm] double` "40.3521"i 403521 yapar. Ondalıklı form alanı
+  `string` alınır ve `InvariantCulture` ile çözülür (bkz. `TracesController.TryInvariant`). JSON gövdeler etkilenmez.
 - İlk yönetici: `Admin:Email` + `Admin:Password` (local.json) açılışta seed edilir; var olan kullanıcıya dokunmaz.
 - Google ile giriş: `NEXT_PUBLIC_GOOGLE_CLIENT_ID` (Vercel) + `Google:ClientId` (API) aynı OAuth istemcisi; ikisi de boşsa düğme görünmez.
   GIS betiği accounts.google.com'dan yalnız giriş/kayıt sayfasında yüklenir (CDN kuralının ikinci bilinçli istisnası).
@@ -68,6 +72,8 @@ Bu liste varsayılandır; aksi belirtilmedikçe hepsi uygulanır. Bir kuralı bi
 - Sol kenarlık (left-border) stili kullanılmaz.
 - Header ve footer'da logo. Yukarı çık butonu. Mobilde offcanvas menü. Alt sayfalarda breadcrumb.
 - Footer'ın en altında https://limanyazilim.com referansı; yıl `new Date().getFullYear()`.
+- Stil dosyaları yükleme sırası: `globals.css` → `ui-members.css` → `ui-trace.css` (hero geçişi, iz bırak, alt menü orta düğme); aynı seçicide sonraki kazanır.
+- Destekçi adı yalnız yazılı izinle yayına girer: `content/site.json → supporter` ve `sponsors.json` boşken footer "Gönüllülerin desteğiyle." yazar.
 
 ## Animasyon
 - Scroll-reveal: IntersectionObserver + CSS sınıfı (`Reveal` bileşeni), ek bağımlılık yok.

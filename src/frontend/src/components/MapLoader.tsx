@@ -2,7 +2,7 @@
 
 import { Component, useEffect, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
-import type { Spot } from "@/lib/types";
+import type { Spot, Trace } from "@/lib/types";
 
 const SpotMap = dynamic(() => import("./SpotMap"), {
   ssr: false,
@@ -36,7 +36,7 @@ class MapBoundary extends Component<{ children: (attempt: number) => ReactNode }
   }
 }
 
-export default function MapLoader(props: { spots: Spot[]; center: [number, number]; zoom: number }) {
+export default function MapLoader(props: { spots: Spot[]; traces?: Trace[]; center: [number, number]; zoom: number }) {
   // Yalnızca tarayıcıda, bir sonraki karede kur: eski sayfanın haritası sökülmeden yenisi aynı kutuya girmesin.
   const [ready, setReady] = useState(false);
   useEffect(() => {

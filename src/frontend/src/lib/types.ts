@@ -73,6 +73,25 @@ export interface SiteContent {
   contactEmail: string;
   /** Google Analytics 4 ölçüm kimliği; boşsa analitik hiç yüklenmez. */
   gaId?: string;
-  /** Footer'daki "… desteğiyle" satırı. Kaldırmak için alanı sil. */
+  /** Footer'daki "… desteğiyle" satırı. Boşsa "Gönüllülerin desteğiyle." yazar. */
   supporter?: { name: string; url: string };
+}
+
+/* ---------- "İz bırak": anonim çöp bildirimi (API: Contracts/TraceDtos.cs) ---------- */
+
+export type TraceKind = "karisik" | "plastik" | "cam" | "moloz" | "tehlikeli" | "diger";
+
+export type TraceStatus = "pending" | "approved" | "rejected";
+
+export interface Trace {
+  id: string;
+  coords: [number, number]; // [lat, lng]
+  kind: TraceKind;
+  note?: string;
+  photoUrl: string;
+  status: TraceStatus;
+  createdAt: string; // ISO
+  /** Yalnız yönetici listesinde dolu */
+  accuracyM?: number | null;
+  reviewNote?: string | null;
 }

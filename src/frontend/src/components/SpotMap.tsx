@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import type { Spot } from "@/lib/types";
+import type { Spot, Trace } from "@/lib/types";
 import { STATUS, STATUS_ORDER } from "@/lib/status";
 import { spotTotals } from "@/lib/content";
-import { formatKg } from "@/lib/status";
+import { formatKg, TRACE_KIND } from "@/lib/status";
 
 /** Leaflet SVG'de CSS değişkeni çalışmaz, hex gerekir. globals.css ile aynı değerler. */
 const HEX: Record<string, string> = {
@@ -45,12 +45,21 @@ function FitToSpots({ spots }: { spots: Spot[] }) {
   return null;
 }
 
+/** Gönüllü izleri: onaylı anonim bildirimler, çalışma noktasından ayrı (küçük, turuncu, dolu). */
+const TRACE_HEX = "#d59a2a";
+
+function traceDay(iso: string) {
+  return new Date(iso).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
+}
+
 export default function SpotMap({
   spots,
+  traces = [],
   center,
   zoom,
 }: {
   spots: Spot[];
+  traces?: Trace[];
   center: [number, number];
   zoom: number;
 }) {
@@ -72,6 +81,25 @@ export default function SpotMap({
       >
         <TileLayer url={TILE_URL} attribution={TILE_ATTR} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} bounds={CITY_BOUNDS} />
         <FitToSpots spots={spots} />
+        {traces.map((t) => (
+          <CircleMarker
+            key={t.id}
+            center={t.coords}
+            radius={6}
+            pathOptions={{ color: "#ffffff", weight: 2, fillColor: TRACE_HEX, fillOpacity: 0.95 }}
+          >
+            <Popup>
+              {/* eslint-disable-next-line @next/next/no-img-element -- API alanından gelen fotoğraf, remotePatterns gerekmesin */}
+              <img className="pop__img" src={t.photoUrl} alt={`Gönüllü izi: ${TRACE_KIND[t.kind]}`} loading="lazy" />
+              <div className="pop__t">Gönüllü izi</div>
+              <div className="pop__m">
+                {TRACE_KIND[t.kind]} · {traceDay(t.createdAt)}
+                {t.note && <> · {t.note}</>}
+              </div>
+              <Link href="/iz-birak" title="Sen de iz bırak">Sen de iz bırak</Link>
+            </Popup>
+          </CircleMarker>
+        ))}
         {spots.map((s) => {
           const t = spotTotals(s);
           return (
@@ -106,6 +134,12 @@ export default function SpotMap({
             {STATUS[k].label}
           </span>
         ))}
+        {traces.length > 0 && (
+          <span className="legend__i">
+            <span className="dot" style={{ background: TRACE_HEX }} />
+            Gönüllü izi
+          </span>
+        )}
       </div>
     </>
   );

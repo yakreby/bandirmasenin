@@ -597,10 +597,20 @@ img {
 
 .sec__head {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
   margin-bottom: 22px;
+}
+
+/* Masaüstünde başlık solda, açıklama sağda; mobilde alt alta */
+@media (min-width: 720px) {
+  .sec__head {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
 }
 
 .sec__head p {
@@ -1027,8 +1037,14 @@ img {
 /* ---------- breadcrumbs ---------- */
 
 .crumbs {
-  padding-top: 18px;
+  padding-top: 34px;
   font-size: 0.85rem;
+}
+
+@media (min-width: 720px) {
+  .crumbs {
+    padding-top: 44px;
+  }
 }
 
 .crumbs ol {
@@ -1692,7 +1708,56 @@ img {
   max-width: none;
 }
 
+/* /sunum: üç zaman ufku ve müdahale sınırı kutuları */
+.pr-horizon {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 800px) {
+  .pr-horizon {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pr-horizon .pr-eyebrow {
+  margin-bottom: 6px;
+}
+
+.pr-box--green {
+  border-top: 4px solid var(--c-leaf);
+}
+
+.pr-box--amber {
+  border-top: 4px solid var(--c-amber);
+}
+
+.pr-box--red {
+  border-top: 4px solid var(--c-rust);
+}
+
 /* ---------- düşük enerji rozeti ---------- */
+
+/* Footer'da kendi satırı: rozet solda, açıklama yanında; mobilde alt alta */
+.ftr__eco {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--c-line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.ftr__eco .eco {
+  margin-top: 0;
+}
+
+.ftr__eco .eco__sub {
+  margin-top: 0;
+  max-width: none;
+}
 
 .eco {
   margin-top: 12px;

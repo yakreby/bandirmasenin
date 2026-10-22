@@ -10,6 +10,7 @@ export default function SiteFooter({
 }: {
   name: string;
   email: string;
+  /** Adlı destekçi gelince site.json → supporter doldurulur; boşken satır "Gönüllülerin desteğiyle." kalır. */
   supporter?: { name: string; url: string };
 }) {
   return (
@@ -24,25 +25,24 @@ export default function SiteFooter({
                 Bağımsız bir yerel girişim. Haritadaki her kayıt fotoğraf ve tartıyla belgelenir;
                 hiçbir kurumun reklam alanı değildir.
               </p>
-              {supporter && (
-                <p className="ftr__supporter">
-                  <a href={supporter.url} title={`${supporter.name} web sitesi`} target="_blank" rel="noopener noreferrer">
-                    {supporter.name}
-                  </a>{" "}
-                  desteğiyle.
-                </p>
-              )}
-              <span className="eco" title="Düşük enerji ilkesiyle geliştirildi">
-                <Leaf size={14} aria-hidden />
-                Düşük enerjili, çevre dostu yazılım
-              </span>
-              <span className="eco__sub">
-                Statik sayfalar, sıkıştırılmış görseller, yalnızca onayla yüklenen analitik, gereksiz
-                istek yok.
-              </span>
+              <p className="ftr__supporter">
+                {supporter ? (
+                  <>
+                    <a href={supporter.url} title={`${supporter.name} web sitesi`} target="_blank" rel="noopener noreferrer">
+                      {supporter.name}
+                    </a>{" "}
+                    desteğiyle.
+                  </>
+                ) : (
+                  "Gönüllülerin desteğiyle."
+                )}
+              </p>
             </div>
           </div>
           <nav className="ftr__nav" aria-label="Alt menü">
+            <Link href="/iz-birak" title="Gördüğün çöpü fotoğrafla ve konumla bildir">
+              İz bırak
+            </Link>
             <Link href="/katil" title="Pazar temizliğine katıl">
               Katıl
             </Link>
@@ -61,6 +61,17 @@ export default function SiteFooter({
             <span>{email}</span>
           </nav>
         </div>
+
+        <div className="ftr__eco" title="Düşük enerji ilkesiyle geliştirildi">
+          <span className="eco">
+            <Leaf size={14} aria-hidden />
+            Düşük enerjili, çevre dostu yazılım
+          </span>
+          <span className="eco__sub">
+            Statik sayfalar, sıkıştırılmış görseller, yalnızca onayla yüklenen analitik, gereksiz istek yok.
+          </span>
+        </div>
+
         <div className="ftr__bottom">
           <span>
             © <Year /> {name}

@@ -1,6 +1,7 @@
 using System.Text;
 using BandirmaSenin.API.Middleware;
 using BandirmaSenin.API.Security;
+using BandirmaSenin.API.Storage;
 using BandirmaSenin.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -8,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using System.IO.Compression;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -19,6 +21,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.local.json", optional: true, reloadOnChange: true);
 
 builder.Services.AddPersistence(builder.Configuration);
+
+// Fotoğraf deposu ("İz bırak"): ilk sürüm yerel disk, /uploads altından statik servis. R2'ye geçiş yalnız bu kaydı değiştirir.
+builder.Services.Configure<UploadsOptions>(builder.Configuration.GetSection(UploadsOptions.Section));
+builder.Services.AddSingleton<IPhotoStorage, LocalPhotoStorage>();
 
 // Kimlik: JWT bearer. Frontend (Next) anahtarı HttpOnly çerezde tutar ve isteklere Bearer olarak ekler.
 var jwt = builder.Configuration.GetSection(JwtOptions.Section).Get<JwtOptions>() ?? new JwtOptions();
@@ -82,6 +88,10 @@ builder.Services.AddRateLimiter(o =>
     o.AddPolicy("contact", ctx => RateLimitPartition.GetFixedWindowLimiter(
         ctx.Connection.RemoteIpAddress?.ToString() ?? "anon",
         _ => new FixedWindowRateLimiterOptions { PermitLimit = 5, Window = TimeSpan.FromMinutes(10), QueueLimit = 0 }));
+    // İz bırak (anonim fotoğraf + konum): IP başına saatte 10 gönderim.
+    o.AddPolicy("trace", ctx => RateLimitPartition.GetFixedWindowLimiter(
+        ctx.Connection.RemoteIpAddress?.ToString() ?? "anon",
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = 10, Window = TimeSpan.FromHours(1), QueueLimit = 0 }));
     // Kayıt ve giriş: IP başına 10 dakikada 10 deneme (kaba kuvvete karşı; hesap kilidi ayrıca var).
     o.AddPolicy("auth", ctx => RateLimitPartition.GetFixedWindowLimiter(
         ctx.Connection.RemoteIpAddress?.ToString() ?? "anon",
@@ -132,6 +142,18 @@ else
 }
 
 app.UseResponseCompression();
+
+// Yüklenen fotoğraflar: /uploads/traces/<guid>.jpg. Adlar tahmin edilemez; uzun önbellek.
+{
+    var storage = (LocalPhotoStorage)app.Services.GetRequiredService<IPhotoStorage>();
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(storage.RootPath),
+        RequestPath = "/uploads",
+        OnPrepareResponse = ctx => ctx.Context.Response.Headers.CacheControl = "public, max-age=2592000, immutable",
+    });
+}
+
 app.UseCors();
 app.UseRateLimiter();
 app.UseAuthentication();

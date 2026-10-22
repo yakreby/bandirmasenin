@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { SessionUser } from "./AuthMenu";
-import { formatDate } from "@/lib/status";
+import type { Trace, TraceStatus } from "@/lib/types";
+import { formatDate, TRACE_KIND } from "@/lib/status";
 
 interface AdminUser {
   id: string; fullName: string; email: string; phone?: string | null;
@@ -15,6 +16,7 @@ interface Msg {
 }
 
 const KIND = { katilim: "Katılım", nokta_oneri: "Nokta önerisi", destek: "Destek", diger: "Diğer" };
+const TRACE_STATUS: Record<TraceStatus, string> = { pending: "Onay bekliyor", approved: "Haritada", rejected: "Reddedildi" };
 const STATUS = { pending: "Onay bekliyor", approved: "Onaylı", rejected: "Reddedildi" };
 
 function day(iso: string) {
@@ -24,10 +26,12 @@ function day(iso: string) {
 export default function AdminPanel() {
   const router = useRouter();
   const [me, setMe] = useState<SessionUser | null | undefined>(undefined);
-  const [tab, setTab] = useState<"uyeler" | "mesajlar">("uyeler");
+  const [tab, setTab] = useState<"uyeler" | "mesajlar" | "izler">("uyeler");
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [filter, setFilter] = useState<"pending" | "all">("pending");
   const [msgs, setMsgs] = useState<Msg[]>([]);
+  const [traces, setTraces] = useState<Trace[]>([]);
+  const [traceFilter, setTraceFilter] = useState<"pending" | "all">("pending");
   const [err, setErr] = useState<string>();
 
   useEffect(() => {
@@ -53,12 +57,19 @@ export default function AdminPanel() {
     else setErr("Mesajlar alınamadı.");
   }, []);
 
+  const loadTraces = useCallback(async () => {
+    const r = await fetch(`/api/bs/traces/all${traceFilter === "pending" ? "?status=pending" : ""}`, { cache: "no-store" });
+    if (r.ok) setTraces(await r.json());
+    else setErr("İzler alınamadı.");
+  }, [traceFilter]);
+
   useEffect(() => {
     if (!me) return;
     setErr(undefined);
     if (tab === "uyeler") loadUsers();
-    else loadMsgs();
-  }, [me, tab, loadUsers, loadMsgs]);
+    else if (tab === "mesajlar") loadMsgs();
+    else loadTraces();
+  }, [me, tab, loadUsers, loadMsgs, loadTraces]);
 
   async function patchUser(id: string, body: Partial<{ status: string; adminNote: string; isAdmin: boolean }>) {
     const r = await fetch(`/api/bs/admin/users/${id}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
@@ -72,6 +83,19 @@ export default function AdminPanel() {
     else setErr("Güncellenemedi.");
   }
 
+  async function reviewTrace(id: string, body: Partial<{ status: TraceStatus; reviewNote: string }>) {
+    const r = await fetch(`/api/bs/traces/${id}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+    if (r.ok) loadTraces();
+    else setErr("Güncellenemedi.");
+  }
+
+  async function deleteTrace(id: string) {
+    if (!window.confirm("İz ve fotoğrafı kalıcı olarak silinecek. Emin misin?")) return;
+    const r = await fetch(`/api/bs/traces/${id}`, { method: "DELETE" });
+    if (r.ok) loadTraces();
+    else setErr("Silinemedi.");
+  }
+
   if (!me) return <div className="authpage"><p className="hero__lead">Yükleniyor…</p></div>;
 
   return (
@@ -81,6 +105,7 @@ export default function AdminPanel() {
         <div className="tabs" role="tablist">
           <button type="button" role="tab" aria-selected={tab === "uyeler"} className={`tab${tab === "uyeler" ? " tab--on" : ""}`} onClick={() => setTab("uyeler")}>Üyeler</button>
           <button type="button" role="tab" aria-selected={tab === "mesajlar"} className={`tab${tab === "mesajlar" ? " tab--on" : ""}`} onClick={() => setTab("mesajlar")}>Mesajlar</button>
+          <button type="button" role="tab" aria-selected={tab === "izler"} className={`tab${tab === "izler" ? " tab--on" : ""}`} onClick={() => setTab("izler")}>İzler</button>
         </div>
       </div>
 
@@ -150,6 +175,53 @@ export default function AdminPanel() {
                   <div className="row__actions">
                     <button type="button" className="btn btn--ghost btn--sm" onClick={() => patchMsg(m.id, { isRead: !m.isRead })}>{m.isRead ? "Okunmadı yap" : "Okundu"}</button>
                     <button type="button" className="btn btn--ghost btn--sm" onClick={() => { const n = window.prompt("Not", m.note ?? ""); if (n !== null) patchMsg(m.id, { note: n }); }}>Not</button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
+
+      {tab === "izler" && (
+        <section>
+          <div className="panel__bar">
+            <label className="check">
+              <input type="checkbox" checked={traceFilter === "pending"} onChange={(e) => setTraceFilter(e.target.checked ? "pending" : "all")} />
+              <span>Yalnız onay bekleyenler</span>
+            </label>
+            <span className="panel__count">{traces.length} iz</span>
+          </div>
+          {traces.length === 0 ? (
+            <div className="empty">{traceFilter === "pending" ? "Onay bekleyen iz yok." : "Henüz iz bırakılmadı."}</div>
+          ) : (
+            <ul className="rows">
+              {traces.map((t) => (
+                <li key={t.id} className={`row row--trace${t.status !== "pending" ? " row--read" : ""}`}>
+                  <div className="row__main">
+                    <a href={t.photoUrl} target="_blank" rel="noopener noreferrer" title="Fotoğrafı büyük aç">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- API alanından gelen fotoğraf */}
+                      <img className="row__thumb" src={t.photoUrl} alt={`İz fotoğrafı: ${TRACE_KIND[t.kind]}`} loading="lazy" />
+                    </a>
+                    <div>
+                      <b>{TRACE_KIND[t.kind]} <span className={`badge badge--${t.status === "approved" ? "ok" : t.status === "rejected" ? "bad" : "pending"}`}>{TRACE_STATUS[t.status]}</span></b>
+                      <span className="row__sub">
+                        {day(t.createdAt)}
+                        {t.accuracyM != null && <> · ±{Math.round(t.accuracyM)} m</>}
+                        {" · "}
+                        <a href={`https://www.openstreetmap.org/?mlat=${t.coords[0]}&mlon=${t.coords[1]}#map=18/${t.coords[0]}/${t.coords[1]}`} target="_blank" rel="noopener noreferrer" title="Konumu haritada aç">
+                          {t.coords[0].toFixed(5)}, {t.coords[1].toFixed(5)}
+                        </a>
+                      </span>
+                      {t.note && <p className="row__msg">{t.note}</p>}
+                      {t.reviewNote && <span className="row__note">{t.reviewNote}</span>}
+                    </div>
+                  </div>
+                  <div className="row__actions">
+                    {t.status !== "approved" && <button type="button" className="btn btn--primary btn--sm" onClick={() => reviewTrace(t.id, { status: "approved" })}>Onayla</button>}
+                    {t.status !== "rejected" && <button type="button" className="btn btn--ghost btn--sm" onClick={() => reviewTrace(t.id, { status: "rejected" })}>Reddet</button>}
+                    <button type="button" className="btn btn--ghost btn--sm" onClick={() => { const n = window.prompt("Not", t.reviewNote ?? ""); if (n !== null) reviewTrace(t.id, { reviewNote: n }); }}>Not</button>
+                    <button type="button" className="btn btn--ghost btn--sm" onClick={() => deleteTrace(t.id)}>Sil</button>
                   </div>
                 </li>
               ))}

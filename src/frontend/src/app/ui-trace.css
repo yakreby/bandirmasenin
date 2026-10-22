@@ -1,0 +1,400 @@
+/* Bandırma Senin — hero fotoğraf geçişi, "İz bırak" (form, harita işareti, alt menü orta düğme, masaüstü yüzen düğme).
+   globals.css ve ui-members.css'ten sonra yüklenir; aynı seçicilerde bu dosya kazanır. */
+
+/* ---------- hero: biraz daha aşağıda başlar, fotoğraflar geçişli ---------- */
+
+.hero {
+  min-height: min(96vh, 920px);
+}
+
+.hero__in {
+  padding-top: calc(var(--header-h) + 180px);
+  padding-bottom: 124px;
+}
+
+@media (max-width: 719px) {
+  .hero {
+    min-height: min(88vh, 720px);
+  }
+  .hero__in {
+    padding-top: calc(var(--header-h) + 120px);
+    padding-bottom: 116px;
+  }
+}
+
+.hero__slides {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease);
+  will-change: opacity;
+}
+
+.hero__slide--on {
+  opacity: 1;
+}
+
+/* Görünen kare yavaşça yaklaşır (Ken Burns); sönen kare geri döner */
+.hero__slide .hero__img {
+  transform: scale(1.04);
+  transition: transform 8s linear;
+}
+
+.hero__slide--on .hero__img {
+  transform: scale(1.12);
+}
+
+.hero__ctrl {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 74px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero__caption {
+  margin-right: 6px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.62);
+  white-space: nowrap;
+}
+
+.hero__arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--c-white);
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: background 0.15s var(--ease);
+}
+
+.hero__arrow:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.hero__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+}
+
+.hero__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: width 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.hero__dot--on {
+  width: 26px;
+  background: var(--c-lime);
+}
+
+@media (max-width: 719px) {
+  .hero__ctrl {
+    bottom: 66px;
+  }
+  .hero__caption {
+    display: none;
+  }
+}
+
+/* ---------- mobil alt menü: ortada yükseltilmiş "İz bırak" ---------- */
+
+.bnav {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.bnav__ico {
+  display: grid;
+  place-items: center;
+}
+
+.bnav__i--main {
+  color: var(--c-forest);
+}
+
+.bnav__i--main .bnav__ico {
+  width: 52px;
+  height: 52px;
+  margin-top: -26px;
+  border-radius: 50%;
+  background: var(--c-lime);
+  color: var(--c-forest);
+  box-shadow: 0 8px 20px rgba(20, 36, 28, 0.22), 0 0 0 4px var(--c-white);
+  transition: transform 0.15s var(--ease), background 0.15s var(--ease);
+}
+
+.bnav__i--main:active .bnav__ico {
+  transform: scale(0.95);
+}
+
+.bnav__i--main.bnav__i--on {
+  background: transparent;
+}
+
+.bnav__i--main.bnav__i--on .bnav__ico {
+  background: var(--c-leaf);
+  color: var(--c-white);
+}
+
+/* ---------- masaüstü: "yukarı çık"ın üstünde yüzen İz bırak ---------- */
+
+.trace-fab {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .trace-fab {
+    position: fixed;
+    right: 16px;
+    bottom: 72px;
+    z-index: 1120;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px 10px 14px;
+    border-radius: 999px;
+    background: var(--c-lime);
+    color: var(--c-forest);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(20, 36, 28, 0.22);
+    transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
+  }
+  .trace-fab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(20, 36, 28, 0.26);
+  }
+}
+
+/* ---------- İz bırak formu ---------- */
+
+.trace {
+  margin-top: 8px;
+}
+
+.trace__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 28px;
+}
+
+.trace__step {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
+}
+
+.trace__n {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--c-leaf);
+  color: var(--c-white);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+.trace__body {
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.trace__body h2 {
+  font-size: 1.25rem;
+  line-height: 36px;
+  margin: 0;
+}
+
+.trace__cam {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 28px 16px;
+  border: 2px dashed var(--c-leaf);
+  border-radius: var(--radius-lg);
+  background: var(--c-leaf-wash);
+  color: var(--c-leaf-deep);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: background 0.15s var(--ease);
+}
+
+.trace__cam:hover {
+  background: #d6e9db;
+}
+
+.trace__cam:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.trace__cam small {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--c-ink-2);
+}
+
+.trace__shot {
+  margin: 0;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--c-sand);
+}
+
+.trace__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trace__retake {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  backdrop-filter: blur(6px);
+}
+
+.trace__geo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.trace__geo-txt {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--c-ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.trace__map {
+  position: relative;
+  height: 280px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+  background: var(--c-sea-wash);
+}
+
+.trace__map .leaflet-container {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-body);
+  background: var(--c-sea-wash);
+}
+
+.trace__why {
+  margin-left: 12px;
+}
+
+.trace__done {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding: 28px;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  background: var(--c-white);
+}
+
+.trace__done-ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--c-leaf);
+  color: var(--c-white);
+  display: grid;
+  place-items: center;
+}
+
+.trace__done p {
+  color: var(--c-ink-2);
+}
+
+/* Harita işareti: görsel dosyası yok, saf CSS damla (TraceMap divIcon) */
+.trace-pin-wrap {
+  background: transparent;
+  border: 0;
+}
+
+.trace-pin {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--c-amber);
+  border: 3px solid var(--c-white);
+  box-shadow: 0 4px 12px rgba(20, 36, 28, 0.3);
+}
+
+/* Ana haritada iz açılır kutusu */
+.pop__img {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  background: var(--c-sand);
+}
+
+/* ---------- yönetim: iz satırları ---------- */
+
+.row__thumb {
+  width: 96px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  background: var(--c-sand);
+  flex: none;
+}
+
+.row--trace .row__main {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.row--trace .row__main > div {
+  display: grid;
+  gap: 2px;
+}

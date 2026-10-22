@@ -20,6 +20,9 @@ src/frontend/.env.*.local
 .vs/
 artifacts/
 
+# ----- Yüklenen dosyalar ("İz bırak" fotoğrafları, yerel disk deposu) -----
+src/backend/BandirmaSenin.API/wwwroot/uploads/
+
 # ----- Node / Next.js -----
 node_modules/
 src/frontend/.next/

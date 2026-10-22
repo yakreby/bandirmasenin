@@ -1,12 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ArrowRight, Map, ListChecks, Route, Images, Handshake, Search, Scale, RotateCcw } from "lucide-react";
-import { fetchSpotsResult, fetchSponsors } from "@/lib/data";
+import { fetchSpotsResult, fetchSponsors, fetchTraces } from "@/lib/data";
 import { siteStats, SITE } from "@/lib/content";
 import { formatKg } from "@/lib/status";
 import MapLoader from "@/components/MapLoader";
+import HeroSlider from "@/components/HeroSlider";
 import SpotCard from "@/components/SpotCard";
 import Reveal from "@/components/Reveal";
+
+/** Hero arka planı: ilk kare öncelikli yüklenir, diğerleri sırayla geçer. */
+const HERO_SLIDES = [
+  { src: "/photos/city/bridge-lighthouse.jpg", alt: "Bandırma sahili: köprü, fener ve sahil parkı", caption: "Sahil, köprü ve fener" },
+  { src: "/photos/city/shore-sunset.jpg", alt: "Bandırma kayalık kıyısında gün batımı", caption: "Kayalık kıyı, gün batımı" },
+  { src: "/photos/city/camlik.jpg", alt: "Çamlık'ta çam ağaçları arasında yürüyüş yolu", caption: "Çamlık" },
+  { src: "/photos/city/son-kursun.jpg", alt: "Son Kurşun Anıtı ve Marmara Denizi", caption: "Son Kurşun Anıtı" },
+  { src: "/photos/city/bridge-sunset.jpg", alt: "Gün batımında köprü ve balıkçı tekneleri", caption: "Köprü, akşam" },
+];
 
 const CITY_PHOTOS = [
   { src: "/photos/city/shore-sunset.jpg", alt: "Bandırma kayalık kıyısında gün batımı", caption: "Kayalık kıyı, gün batımı" },
@@ -16,7 +26,7 @@ const CITY_PHOTOS = [
 ];
 
 export default async function HomePage() {
-  const [result, sponsors] = await Promise.all([fetchSpotsResult(), fetchSponsors()]);
+  const [result, sponsors, traces] = await Promise.all([fetchSpotsResult(), fetchSponsors(), fetchTraces()]);
   const spots = result.data;
   const stats = siteStats(spots);
   const outage = result.error;
@@ -24,14 +34,7 @@ export default async function HomePage() {
   return (
     <main>
       <section className="hero">
-        <Image
-          src="/photos/city/bridge-lighthouse.jpg"
-          alt="Bandırma sahili: köprü, fener ve sahil parkı"
-          fill
-          priority
-          sizes="100vw"
-          className="hero__img"
-        />
+        <HeroSlider slides={HERO_SLIDES} />
         <div className="hero__shade" aria-hidden />
         <div className="wrap hero__in">
           <div className="hero__place">
@@ -96,9 +99,15 @@ export default async function HomePage() {
       <section className="wrap sec" id="harita">
         <div className="sec__head">
           <h2 className="sec__title"><span className="sec__ico"><Map size={20} aria-hidden /></span>Harita</h2>
-          <p>{outage ? "Bağlantı gelince noktalar görünür." : "Bir noktaya dokun, kaydını aç."}</p>
+          <p>
+            {outage
+              ? "Bağlantı gelince noktalar görünür."
+              : traces.length > 0
+                ? "Bir noktaya dokun, kaydını aç. Turuncu izler gönüllü bildirimleri."
+                : "Bir noktaya dokun, kaydını aç."}
+          </p>
         </div>
-        <MapLoader spots={spots} center={SITE.city.center} zoom={SITE.city.zoom} />
+        <MapLoader spots={spots} traces={traces} center={SITE.city.center} zoom={SITE.city.zoom} />
       </section>
 
       <Reveal as="section" className="wrap sec reveal--up" id="calismalar">

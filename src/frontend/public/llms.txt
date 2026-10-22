@@ -6,6 +6,7 @@
 
 - [Ana sayfa ve harita](https://bandirmasenin.com/): Tüm noktalar, durumları ve toplamlar.
 - [Katıl](https://bandirmasenin.com/katil): Pazar temizliklerine katılım, güvenlik kuralları.
+- [İz bırak](https://bandirmasenin.com/iz-birak): Gördüğünüz çöpü fotoğraf ve konumla anonim bildirin; onaydan sonra haritada görünür.
 - [Hakkında](https://bandirmasenin.com/hakkinda): Yöntem, ilkeler, destekçi olmak.
 - Nokta kayıtları: https://bandirmasenin.com/nokta/{slug}
 

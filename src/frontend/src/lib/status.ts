@@ -1,4 +1,4 @@
-import type { Material, SpotKind, SpotStatus } from "./types";
+import type { Material, SpotKind, SpotStatus, TraceKind } from "./types";
 
 export const STATUS: Record<SpotStatus, { label: string; short: string; color: string }> = {
   tespit_edildi: { label: "Tespit edildi", short: "Tespit", color: "var(--c-slate)" },
@@ -30,6 +30,15 @@ export const KIND: Record<SpotKind, string> = {
   park: "Park",
   sokak: "Sokak",
   dere: "Dere kenarı",
+  diger: "Diğer",
+};
+
+export const TRACE_KIND: Record<TraceKind, string> = {
+  karisik: "Karışık çöp",
+  plastik: "Plastik",
+  cam: "Cam",
+  moloz: "Moloz, inşaat atığı",
+  tehlikeli: "Tehlikeli atık",
   diger: "Diğer",
 };
 

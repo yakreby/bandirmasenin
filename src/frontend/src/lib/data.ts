@@ -1,7 +1,7 @@
 "use cache";
 
 import { cacheLife } from "next/cache";
-import type { Spot, Sponsor } from "./types";
+import type { Spot, Sponsor, Trace } from "./types";
 import { getSpots as localSpots, SPONSORS as localSponsors } from "./content";
 
 /**
@@ -57,4 +57,9 @@ export async function fetchSpotResult(slug: string): Promise<DataResult<Spot | u
 
 export async function fetchSponsors(): Promise<Sponsor[]> {
   return (await load<Sponsor[]>("/api/sponsors", () => localSponsors, [])).data;
+}
+
+/** Onaylı gönüllü izleri (haritada küçük turuncu noktalar). API yoksa boş; yerel içerikte iz yok. */
+export async function fetchTraces(): Promise<Trace[]> {
+  return (await load<Trace[]>("/api/traces", () => [], [])).data;
 }

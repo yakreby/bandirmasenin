@@ -17,5 +17,10 @@
   },
   "Google": {
     "ClientId": "xxxx.apps.googleusercontent.com"
+  },
+  "Uploads": {
+    "Root": "wwwroot/uploads",
+    "PublicBaseUrl": "https://bs.limanyazilim.com",
+    "MaxPhotoBytes": 6000000
   }
 }

@@ -46,6 +46,19 @@ Enum'lar DB'de string (PascalCase), JSON'da snake_case (`JsonStringEnumConverter
 
 İlk sürümde `public/photos/<slug>/` (repo) ya da API'ye tam URL. Büyüyünce Cloudflare R2 ve yükleme ucu.
 
+Yüklenen fotoğraflar ("İz bırak") `IPhotoStorage` üzerinden gider; ilk gerçekleme `LocalPhotoStorage`
+(`Uploads:Root`, varsayılan `wwwroot/uploads`, `/uploads/...` statik servis, uzun önbellek). R2'ye geçiş yalnız
+bu arayüzün yeni gerçeklemesidir; controller değişmez. Dosya türü uzantıdan değil ilk bayttan (JPEG/PNG/WebP) okunur.
+
+## İz bırak (anonim bildirim)
+
+`/iz-birak` → `TraceForm`: kamera (`<input capture>`) → tarayıcıda 1600px JPEG'e küçültme (EXIF ve gömülü konum düşer)
+→ `navigator.geolocation` → `TraceMap` üzerinde sürüklenebilir işaret → `/api/trace` (Next BFF, multipart) → API
+`POST /api/traces` (honeypot, IP başına 10/saat, Bandırma kutusu dışı red). Kayıt `Pending` düşer; yönetici `/panel → İzler`
+sekmesinden onaylar/reddeder/siler (`GET /api/traces/all`, `PATCH`, `DELETE`, AdminKey). Herkese açık `GET /api/traces`
+yalnız onaylıları döner; ana harita bunları turuncu nokta + fotoğraflı açılır kutuyla gösterir. Ad, e-posta alınmaz;
+IP yalnız kötüye kullanım için saklanır ve hiçbir uçtan dönmez. Sözleşme: `Contracts/TraceDtos.cs` ↔ `lib/types.ts → Trace`.
+
 ## Harita
 
 OpenStreetMap karoları doğrudan; URL tek yerde (`SpotMap.tsx`). Trafik büyürse MapTiler/Stadia ya da kendi tile sunucusu.

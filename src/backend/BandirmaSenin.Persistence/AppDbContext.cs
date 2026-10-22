@@ -16,6 +16,7 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     public DbSet<Sponsor> Sponsors => Set<Sponsor>();
     public DbSet<SpotSponsor> SpotSponsors => Set<SpotSponsor>();
     public DbSet<ContactMessage> ContactMessages => Set<ContactMessage>();
+    public DbSet<TraceReport> TraceReports => Set<TraceReport>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {

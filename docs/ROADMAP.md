@@ -23,7 +23,10 @@ Bütçe ve ortaklık konuşması dört Pazar sonra, veriyle.
 - **v0.1.1 (2026-10-22):** iletişim formu (API + DB), /sunum, GA onay sonrası, özel 404/500, KVKK aydınlatma,
   canlıda API düşünce örnek veriye düşülmez, resmî toplam yalnız tartılmış kilo, demo kayıtlar noindex.
 - **v0.2 Üyelik ve yönetici paneli (2026-10-22, ilk kesim YAPILDI):** kayıt/giriş/hesap, üye onayı, WhatsApp daveti onaylıya,
-  panelde üyeler + mesajlar. Kalan: fotoğraf yükleme ve onayı, nokta/ziyaret formu, e-posta doğrulama (SMTP).
+  panelde üyeler + mesajlar. Kalan: nokta/ziyaret formu, e-posta doğrulama (SMTP).
+  - **2026-10-22 ikinci tur YAPILDI:** "İz bırak" (anonim kamera + konum bildirimi, yerel disk deposu, panelde onay),
+    hero fotoğraf geçişi, footer'da düşük enerji satırı, mobil düzeltmeler; Formex adı public sayfalardan kaldırıldı
+    ("Gönüllülerin desteğiyle", `supporter` dolunca geri gelir). Bekleyen: prod'a `AddTraceReports` migration + API publish, R2'ye geçiş.
   - Hesaplar: e-posta + şifre (ASP.NET Identity), e-posta doğrulama, roller `Admin` / `Member`. Kayıt formu KVKK onayı ister.
     Üye olmanın karşılığı: Pazar çalışmalarına davet (e-posta), WhatsApp grubuna katılım linki (onaylı üyeye gösterilir),
     kendi katıldığı çalışmaların listesi, ileride katılım sertifikası.

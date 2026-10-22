@@ -11,6 +11,7 @@ import AuthMenu from "./AuthMenu";
 const LINKS = [
   { href: "/#harita", label: "Harita", title: "Çalışma haritasına git" },
   { href: "/#calismalar", label: "Çalışmalar", title: "Tüm çalışma kayıtları" },
+  { href: "/iz-birak", label: "İz bırak", title: "Gördüğün çöpü fotoğrafla ve konumla bildir" },
   { href: "/katil", label: "Katıl", title: "Pazar temizliğine katıl" },
   { href: "/hakkinda", label: "Hakkında", title: "Bandırma Senin nedir" },
   { href: "/iletisim", label: "İletişim", title: "Bize yazın" },

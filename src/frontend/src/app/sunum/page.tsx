@@ -284,10 +284,120 @@ export default function PresentationPage() {
             <p>İlk gün telefon, QR etiket ve kantar. Sonrası sahanın öğrettiğine göre.</p>
           </div>
           <div className="pr-cols">
-            <div className="pr-box"><h3>V1 Şimdi</h3><p>Her torbaya QR, gerçek tartım, atık türü, fotoğraf. Harita ve nokta kayıtları canlı. Yönetici girişi ve mobil uygulama sırada.</p></div>
-            <div className="pr-box"><h3>V2</h3><p>Fotoğraftan şişe, kutu, ambalaj tanıma. Modelin tahmini ile gönüllünün sayımı yan yana. Kilo yine kantardan.</p></div>
-            <div className="pr-box"><h3>V3</h3><p>Vatandaş &ldquo;burası kirli&rdquo; bildirimi, yönetici onayıyla yayın. &ldquo;Bu noktayı sahiplen&rdquo;: kişi, mahalle grubu ya da şirket bir noktanın bakımını üstlenir.</p></div>
+            <div className="pr-box"><h3>V1 Şimdi</h3><p>Her torbaya QR, gerçek tartım, atık türü, fotoğraf. Harita, nokta kayıtları, üyelik ve yönetici paneli canlı. Vatandaş &ldquo;iz bırak&rdquo;: kamera, konum, anonim gönderim, onayla haritada.</p></div>
+            <div className="pr-box"><h3>V2</h3><p>Her çekimde zemin, ekipman, süre ve doğrulanmış malzeme türü de kaydedilir; yakın plan atık fotoğrafları etiketlenir. Fotoğraftan şişe, kutu, ambalaj tanıma başlar; modelin tahmini ile gönüllünün sayımı yan yana. Kilo yine kantardan.</p></div>
+            <div className="pr-box"><h3>V3</h3><p>&ldquo;Bu noktayı sahiplen&rdquo;: kişi, mahalle grubu ya da şirket bir noktanın bakımını üstlenir. Atık kabul ağı ve teslim planlama; müdahale sınıfı ve onay zinciri her görevde.</p></div>
             <div className="pr-box"><h3>V4</h3><p>Atık yoğunluğu ve yeniden kirlenme haritası, kaynak planlama. Erdek, Gönen ve diğer şehirlere aynı model.</p></div>
+          </div>
+        </section>
+
+        <section className="pr-sec">
+          <div className="pr-head">
+            <div className="pr-eyebrow">09 / Vizyon</div>
+            <h2>Bu proje nereye büyüyebilir?</h2>
+            <p>Bugünkü teklif değişmiyor. Bu bölüm, sahada doğru kayıt tutarsak kapının nereye açıldığını gösterir.</p>
+          </div>
+          <div className="pr-stack">
+            <p className="pr-lead">
+              Bandırma Senin, insanların her soruna kendi başına müdahale ettiği bir hareket değil; sorunu tespit
+              eden, yetkili kurumla çözen, sonucu doğrulayan ve öğrendiğini teknolojiye dönüştüren bir sistem.
+              Projenin en değerli varlığı toplanan çöp değil, onu toplarken doğrulayarak öğrendiğimiz bilgi.
+            </p>
+            <div className="pr-horizon">
+              <div className="pr-box pr-box--hi">
+                <div className="pr-eyebrow">Bugün</div>
+                <h3>Ölçülebilir temizlik</h3>
+                <p>Bandırma&apos;da gerçek temizlik, harita, aynı açıdan önce/sonra, kantar, teslim kaydı. Vatandaşın anonim &ldquo;iz bırak&rdquo; bildirimi, yönetici onayıyla haritada.</p>
+              </div>
+              <div className="pr-box">
+                <div className="pr-eyebrow">Yakın gelecek</div>
+                <h3>Güvenli operasyon ve geri kazanım ağı</h3>
+                <p>Belediyeyle gönüllü çalışma protokolü, Formex&apos;le uygun plastik için kabul, Formex&apos;in almadığı malzeme için yetkili tesis ağı. Her çekimde zemin, ekipman, süre ve doğrulanmış malzeme türü de kaydedilir.</p>
+              </div>
+              <div className="pr-box pr-box--dark">
+                <div className="pr-eyebrow">Uzun gelecek</div>
+                <h3>Sahadan öğrenen teknoloji</h3>
+                <p>Fotoğraftan atık tanıma ve önce/sonra değişim analizi, hangi ortamda hangi yöntemin işe yaradığını öğrenen operasyon zekâsı. Aynı altyapı başka şehirlere ve kurumlara; şartlar oluşursa doğrulanmış çevresel kredi.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="pr-sec">
+          <div className="pr-head">
+            <div className="pr-eyebrow">10 / Dört varlık</div>
+            <h2>Sahada doğan dört ürün</h2>
+            <p>Bandırma Senin yerel ve bağımsız kalır; teknoloji ayrı adla başka kurumlara lisanslanabilir.</p>
+          </div>
+          <div className="pr-cols">
+            <div className="pr-box"><h3>FieldOps</h3><p>Görev, gönüllü, ekipman, koordinat, fotoğraf, 30 gün kontrol. Belediye, çevre kuruluşu ya da temizlik şirketi kendi markasıyla kullanır.</p></div>
+            <div className="pr-box"><h3>Material Router</h3><p>Toplanan malzemeyi türüne göre yetkili toplama ve geri kazanım kanalına, kayıt zincirini koruyarak yönlendirir. Toplama-ayırma tesisi ile hammaddeye dönüştüren tesis ayrı kaydedilir.</p></div>
+            <div className="pr-box"><h3>Environmental AI</h3><p>Atık tespiti ve sayımı, önce/sonra değişim ölçümü, ekipman ve yöntem önerisi. Dış mekân verisi ile tesis verisi ayrı tutulur; biri diğerinde çalışır varsayılmaz.</p></div>
+            <div className="pr-box"><h3>Impact Ledger</h3><p>Doğrulanmış katkı, sponsor finansmanlı ödül hak edişi ve varsa sertifikalı çevresel sonuç. Oyun puanı, doğrulanmış kilo ve kredi birbirine karışmaz.</p></div>
+          </div>
+        </section>
+
+        <section className="pr-sec">
+          <div className="pr-head">
+            <div className="pr-eyebrow">11 / Sınırlar</div>
+            <h2>Neye dokunuruz, neye dokunmayız?</h2>
+            <p>İyi niyetli bir müdahale başkasına zarar verebilir. Sınır kişisel inisiyatife değil, sisteme yazılır.</p>
+          </div>
+          <div className="pr-stack">
+            <div className="pr-cols">
+              <div className="pr-box pr-box--green">
+                <h3>Yeşil: temel temizlik</h3>
+                <p>Erişilebilir alanda sıradan ambalaj atığını toplamak, ayırmak, tartmak, yetkili sisteme teslim etmek. Alan yetkisi ve teslim planı teyitliyse pilot kapsamı.</p>
+              </div>
+              <div className="pr-box pr-box--amber">
+                <h3>Sarı: izinli iyileştirme</h3>
+                <p>Bank boyamak, kent mobilyası onarmak, levha ya da çöp kutusu yerleştirmek, budama. Malikin yazılı izni, uygun malzeme, teknik sorumlu ve tamamlanma kontrolüyle.</p>
+              </div>
+              <div className="pr-box pr-box--red">
+                <h3>Kırmızı: yetkili kurum işi</h3>
+                <p>Yol çukuru, kaldırım taşıyıcısı, elektrik, riskli ağaç, tehlikeli atık. Gönüllü müdahalesi yok: tespit, fotoğraf, konum ve risk seviyesiyle belediyeye bildirim; onarım sonrası doğrulama.</p>
+              </div>
+            </div>
+            <p className="pr-note">
+              Dayanak: Belediye Kanunu m.77 gönüllü katılımı, Gönüllü Katılım Yönetmeliği m.10 belediyeyle protokolü
+              tanımlar; Karayolları Trafik Kanunu m.14 yol yapısına izinsiz müdahaleyi yasaklar. Bu tablo operasyon
+              kuralıdır, hukuki izin belgesi değildir.
+            </p>
+          </div>
+        </section>
+
+        <section className="pr-sec">
+          <div className="pr-head">
+            <div className="pr-eyebrow">12 / Geri kazanım ağı</div>
+            <h2>Formex&apos;in almadığı malzeme nereye gider?</h2>
+            <p>Formex PET işlemiyor. Bu bir engel değil; toplanan atığın doğru kanala ulaşmasını organize etmek de bizim işimiz.</p>
+          </div>
+          <div className="pr-stack">
+            <div className="pr-tbl">
+              <table>
+                <thead>
+                  <tr><th>Malzeme</th><th>İlk değerlendirilecek kanal</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>DOA işaretli içecek ambalajı</td><td>Resmî depozito iade sistemi; teslim usulü ve hak sahibi netleşince</td></tr>
+                  <tr><td>Uygun PP / PE plastik</td><td>Formex kabul şartları</td></tr>
+                  <tr><td>DOA dışı PET</td><td>PET kabul eden yetkili toplama ve geri kazanım işletmesi (Bandırma ve OSB&apos;de adaylar var, lisans kapsamı teyit edilecek)</td></tr>
+                  <tr><td>Metal, cam, kâğıt</td><td>Yetkili ayrı toplama kanalları</td></tr>
+                  <tr><td>Kirli, karışık</td><td>Belediye koordinasyonuyla uygun atık yönetimi</td></tr>
+                  <tr><td>Tehlikeli, tıbbi, kesici</td><td>Dokunmadan bildirim; uzman ekip</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="pr-cols">
+              <div className="pr-box pr-box--hi">
+                <h3>Formex&apos;e sorumuz</h3>
+                <p>Kabul etmediğiniz atıklar için çalıştığınız toplama-ayırma firmaları ya da geri dönüşüm tesisleri var mı? Mevcut ağınız, sıfırdan tesis aramaktan çok daha değerli.</p>
+              </div>
+              <div className="pr-box">
+                <h3>Krediler konusunda dürüst sınır</h3>
+                <p>On şişe toplamak satılabilir karbon ya da plastik kredisi üretmez. Ek fayda, uygun atık yönetimi ve bağımsız denetim gerekir. Site bugün karbon sayısı yazmaz; yazacaksa metodoloji doğrulandıktan sonra, ayrı kayıtta.</p>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -301,6 +411,7 @@ export default function PresentationPage() {
             <li><span className="pr-close__num">01</span> Saha kiti için ayni destek</li>
             <li><span className="pr-close__num">02</span> Uygun plastik için kabul değerlendirmesi</li>
             <li><span className="pr-close__num">03</span> Logo ve işbirliği için yazılı onay</li>
+            <li><span className="pr-close__num">04</span> Almadığınız malzeme için tanıdığınız tesislerle bir tanıştırma</li>
           </ul>
           <p>
             İlk dört Pazar&apos;ı kendimiz yapıyoruz, veriyle geri geliyoruz. Beğenmezseniz haritadaki
