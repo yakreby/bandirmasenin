@@ -1,10 +1,14 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "Bandırma Senin: Şehrine sahip çık. Değişimi gör.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OgImage() {
+export default async function OgImage() {
+  const mark = await readFile(join(process.cwd(), "public/images/bs-mark.png"));
+  const markSrc = `data:image/png;base64,${mark.toString("base64")}`;
   return new ImageResponse(
     (
       <div
@@ -21,15 +25,8 @@ export default function OgImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 34, fontWeight: 700 }}>
-          <div
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 40,
-              border: "5px solid #2e7d4f",
-              display: "flex",
-            }}
-          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={markSrc} width={56} height={56} alt="" />
           Bandırma Senin
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
