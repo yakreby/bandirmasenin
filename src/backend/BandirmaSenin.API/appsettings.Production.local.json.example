@@ -14,5 +14,8 @@
   },
   "Community": {
     "WhatsAppInviteUrl": "https://chat.whatsapp.com/..."
+  },
+  "Google": {
+    "ClientId": "xxxx.apps.googleusercontent.com"
   }
 }

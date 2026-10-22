@@ -19,13 +19,22 @@ const LINKS = [
 export default function SiteHeader({ name }: { name: string }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const overHero = pathname === "/"; // yalnız ana sayfada hero'nun üstüne şeffaf biner
 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -52,7 +61,7 @@ export default function SiteHeader({ name }: { name: string }) {
       <nav className="off__panel" aria-label="Mobil menü">
         <div className="off__head">
           <span className="brand">
-            <Logo />
+            <Logo size={40} />
             {name}
           </span>
           <button type="button" className="burger" aria-label="Menüyü kapat" onClick={() => setOpen(false)}>
@@ -71,11 +80,13 @@ export default function SiteHeader({ name }: { name: string }) {
     </div>
   );
 
+  const cls = ["hdr", overHero && !scrolled ? "hdr--clear" : "", scrolled ? "hdr--scrolled" : ""].filter(Boolean).join(" ");
+
   return (
-    <header className="hdr">
+    <header className={cls}>
       <div className="wrap hdr__in">
         <Link href="/" className="brand" title="Ana sayfa">
-          <Logo />
+          <Logo size={48} />
           <span>{name}</span>
         </Link>
         <nav className="nav" aria-label="Site">

@@ -3,6 +3,8 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { LogIn, UserPlus } from "lucide-react";
+import GoogleButton from "./GoogleButton";
 
 /** Giriş ve kayıt formu tek bileşen; mode belirler. Başarıda hesap sayfasına (ya da ?next=) gider. */
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {
@@ -96,6 +98,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
 
       <div className="form__actions">
         <button type="submit" className="btn btn--primary" disabled={state.busy}>
+          {mode === "login" ? <LogIn size={18} aria-hidden /> : <UserPlus size={18} aria-hidden />}
           {state.busy ? "Bekleyin" : mode === "login" ? "Giriş yap" : "Üye ol"}
         </button>
         {mode === "login" ? (
@@ -108,6 +111,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
           </Link>
         )}
       </div>
+      <GoogleButton next={next} />
     </form>
   );
 }

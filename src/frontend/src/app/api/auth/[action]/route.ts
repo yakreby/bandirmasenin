@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
  * Kimlik köprüsü (BFF). JWT tarayıcıya hiç verilmez: HttpOnly çerezde durur, API'ye biz taşırız.
  *   POST /api/auth/login     { email, password }            → çerez yazar, kullanıcıyı döner
  *   POST /api/auth/register  { fullName, email, password… } → çerez yazar, kullanıcıyı döner
+ *   POST /api/auth/google    { idToken }                     → Google kimliğiyle giriş/kayıt, çerez yazar
  *   POST /api/auth/logout                                   → çerezi siler
  *   GET  /api/auth/me                                       → kullanıcı ya da 401
  */
@@ -52,7 +53,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ action: string
     return res;
   }
 
-  if (action !== "login" && action !== "register") {
+  if (action !== "login" && action !== "register" && action !== "google") {
     return NextResponse.json({ error: "Bilinmeyen işlem." }, { status: 404 });
   }
   if (!API) return unavailable();

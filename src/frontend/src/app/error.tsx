@@ -12,7 +12,7 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
   return (
     <main className="wrap">
       <article className="errpage">
-        <div className="errpage__code">500</div>
+        <div className="errpage__code">Hata</div>
         <h1>Bir şeyler ters gitti.</h1>
         <p>
           Sayfa yüklenirken beklenmeyen bir hata oluştu. Sorun bizim tarafımızda; tekrar denemek

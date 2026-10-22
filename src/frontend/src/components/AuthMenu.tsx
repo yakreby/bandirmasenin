@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { UserRound } from "lucide-react";
+import { LogIn, UserPlus, UserRound, LayoutDashboard } from "lucide-react";
 
 export interface SessionUser {
   id: string;
@@ -38,21 +38,25 @@ export default function AuthMenu({ variant }: { variant: "bar" | "panel" }) {
   if (variant === "panel") {
     return user ? (
       <>
-        <Link href="/hesap" title="Hesabım">
+        <Link href="/hesap" className="btn btn--primary" title="Hesabım">
+          <UserRound size={18} aria-hidden />
           Hesabım
         </Link>
         {isAdmin && (
-          <Link href="/panel" title="Yönetim paneli">
+          <Link href="/panel" className="btn btn--ghost" title="Yönetim paneli">
+            <LayoutDashboard size={18} aria-hidden />
             Panel
           </Link>
         )}
       </>
     ) : (
       <>
-        <Link href="/giris" title="Giriş yap">
+        <Link href="/giris" className="btn btn--primary" title="Giriş yap">
+          <LogIn size={18} aria-hidden />
           Giriş yap
         </Link>
-        <Link href="/kayit" title="Üye ol">
+        <Link href="/kayit" className="btn btn--ghost" title="Üye ol">
+          <UserPlus size={18} aria-hidden />
           Üye ol
         </Link>
       </>
@@ -73,11 +77,13 @@ export default function AuthMenu({ variant }: { variant: "bar" | "panel" }) {
     </span>
   ) : (
     <span className="auth">
-      <Link href="/giris" className="auth__link" title="Giriş yap">
-        Giriş yap
-      </Link>
-      <Link href="/kayit" className="btn btn--primary auth__btn" title="Üye ol">
+      <Link href="/kayit" className="auth__link auth__link--ghost" title="Üye ol">
+        <UserPlus size={16} aria-hidden />
         Üye ol
+      </Link>
+      <Link href="/giris" className="btn btn--primary auth__btn" title="Giriş yap">
+        <LogIn size={16} aria-hidden />
+        Giriş yap
       </Link>
     </span>
   );

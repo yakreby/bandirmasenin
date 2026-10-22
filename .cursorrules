@@ -24,6 +24,8 @@ mobile/         sonraki aşama (Expo)
   Sayfalar statik kalır; oturum durumu istemcide (`AuthMenu`, `AccountPanel`, `AdminPanel`) okunur.
 - Yazma uçları: Admin rolü JWT'si ya da `X-Admin-Key` (betikler). Üye kaydı `Pending` düşer, yönetici `/panel`'den onaylar.
 - İlk yönetici: `Admin:Email` + `Admin:Password` (local.json) açılışta seed edilir; var olan kullanıcıya dokunmaz.
+- Google ile giriş: `NEXT_PUBLIC_GOOGLE_CLIENT_ID` (Vercel) + `Google:ClientId` (API) aynı OAuth istemcisi; ikisi de boşsa düğme görünmez.
+  GIS betiği accounts.google.com'dan yalnız giriş/kayıt sayfasında yüklenir (CDN kuralının ikinci bilinçli istisnası).
 
 ## Veri ilkeleri (ürün kuralı, kodda da korunur)
 
@@ -70,7 +72,8 @@ Bu liste varsayılandır; aksi belirtilmedikçe hepsi uygulanır. Bir kuralı bi
 ## Animasyon
 - Scroll-reveal: IntersectionObserver + CSS sınıfı (`Reveal` bileşeni), ek bağımlılık yok.
 - `prefers-reduced-motion: reduce` prod'da saygı görür: hareket kapanır, kısa opacity geçişi kalır.
-- Dev'de animasyonlar zorla açık: `<html class="force-motion">` yalnızca `NODE_ENV=development`'ta basılır; reduce bloğu `html:not(.force-motion)` ile korunur.
+- **Bu projede `force-motion` her ortamda basılır** (ürün kararı 2026-10-22): Windows "animasyonları azalt" açık olsa da site hareketli kalır. Reduce bloğu kodda duruyor ama devre dışı.
+- Smooth scroll: Lenis (`SmoothScroll` bileşeni, Liman3DWebsite ayarları); rota değişiminde Lenis ile tepeye/çapaya gidilir, ham scrollTo kullanılmaz.
 
 ## Bağımlılıklar — CDN yok
 - Dış script/stil CDN'den çekilmez. Fontlar next/font ile derlemede indirilir ve siteden servis edilir; kütüphaneler npm ile paketlenir.

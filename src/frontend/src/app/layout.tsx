@@ -5,6 +5,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import BackToTop from "@/components/BackToTop";
 import BottomNav from "@/components/BottomNav";
+import SmoothScroll from "@/components/SmoothScroll";
 import CookieConsent from "@/components/CookieConsent";
 import Analytics from "@/components/Analytics";
 import JsonLd from "@/components/JsonLd";
@@ -63,12 +64,9 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
-  const dev = process.env.NODE_ENV === "development";
+  /* force-motion her ortamda: Windows "animasyonları azalt" açık olsa da site hareketli kalır (ürün kararı, 2026-10-22). */
   return (
-    <html
-      lang="tr"
-      className={`${display.variable} ${body.variable}${dev ? " force-motion" : ""}`}
-    >
+    <html lang="tr" className={`${display.variable} ${body.variable} force-motion`}>
       <body>
         <JsonLd
           data={{
@@ -96,6 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader name={SITE.name} />
         {children}
         <SiteFooter name={SITE.name} email={SITE.contactEmail} supporter={SITE.supporter} />
+        <SmoothScroll />
         <BottomNav />
         <BackToTop />
         <CookieConsent />

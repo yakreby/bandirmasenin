@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -54,9 +54,13 @@ export default function SpotMap({
   center: [number, number];
   zoom: number;
 }) {
+  // Her mount'ta yeni anahtar: Next istemci gezinmesinde Leaflet aynı DOM kutusunu yeniden başlatmaya
+  // kalkınca "Map container is already initialized" fırlatıyordu; bu, sayfayı hata sınırına düşürüyordu.
+  const [mapKey] = useState(() => `map-${Math.random().toString(36).slice(2)}`);
   return (
     <>
       <MapContainer
+        key={mapKey}
         center={center}
         zoom={zoom}
         minZoom={MIN_ZOOM}

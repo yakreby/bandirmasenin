@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, Backpack, CalendarCheck, MapPinPlus, ShieldAlert } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default function JoinPage() {
           ediyoruz. Öğlene kalmadan bitiyor.
         </p>
 
-        <h2>Nasıl katılırım</h2>
+        <h2><CalendarCheck size={22} aria-hidden />Nasıl katılırım</h2>
         <p>
           Bir sonraki çalışmanın yeri ve saati e-postayla paylaşılır.{" "}
           <Link href="/iletisim?konu=katilim" title="Katılım formunu aç">
@@ -37,28 +38,29 @@ export default function JoinPage() {
         <p>
           <Link href="/iletisim?konu=katilim" className="btn btn--primary" title="Katılım formunu aç">
             Katılmak istiyorum
+            <ArrowRight size={18} aria-hidden />
           </Link>
         </p>
 
-        <h2>Ne getirmeli</h2>
+        <h2><Backpack size={22} aria-hidden />Ne getirmeli</h2>
         <ul>
           <li>Kapalı ayakkabı ve rahat kıyafet.</li>
           <li>Su ve şapka. Yazın sahil gölgesizdir.</li>
           <li>Eldiven, çöp maşası ve çuval: her çalışma için ne gerektiği ve kimin getireceği davette yazar. Koruyucu ekipman yoksa çalışma yapılmaz.</li>
         </ul>
 
-        <h2>Güvenlik kuralları</h2>
+        <h2><ShieldAlert size={22} aria-hidden />Güvenlik kuralları</h2>
         <p>Burada amatör davranmıyoruz. Bu kurallara uymayan çalışma yapılmaz.</p>
         <ul className="rules">
-          <li>Kesici, delici, tıbbi, kimyasal ya da ne olduğu belli olmayan atığa dokunulmaz; fotoğraflanıp belediyeye bildirilir.</li>
-          <li>Trafiğe açık yol kenarlarında ve dik, kaygan kıyılarda gönüllü çalışması yapılmaz.</li>
-          <li>Eldiven olmadan atık tutulmaz.</li>
-          <li>Ayrıştırılmış atık belediyeye ya da yetkili tesise teslim edilir; nereye gittiği kayda yazılır.</li>
-          <li>Çekimlerde gönüllülerin rızası alınır, çevredeki kişilerin yüzü paylaşılmaz.</li>
-          <li>Hava kötüyse çalışma ertelenir. Fırtına günü kahramanlık yok.</li>
+          <li><ShieldAlert size={18} aria-hidden /><span>Kesici, delici, tıbbi, kimyasal ya da ne olduğu belli olmayan atığa dokunulmaz; fotoğraflanıp belediyeye bildirilir.</span></li>
+          <li><ShieldAlert size={18} aria-hidden /><span>Trafiğe açık yol kenarlarında ve dik, kaygan kıyılarda gönüllü çalışması yapılmaz.</span></li>
+          <li><ShieldAlert size={18} aria-hidden /><span>Eldiven olmadan atık tutulmaz.</span></li>
+          <li><ShieldAlert size={18} aria-hidden /><span>Ayrıştırılmış atık belediyeye ya da yetkili tesise teslim edilir; nereye gittiği kayda yazılır.</span></li>
+          <li><ShieldAlert size={18} aria-hidden /><span>Çekimlerde gönüllülerin rızası alınır, çevredeki kişilerin yüzü paylaşılmaz.</span></li>
+          <li><ShieldAlert size={18} aria-hidden /><span>Hava kötüyse çalışma ertelenir. Fırtına günü kahramanlık yok.</span></li>
         </ul>
 
-        <h2>Bir nokta önermek</h2>
+        <h2><MapPinPlus size={22} aria-hidden />Bir nokta önermek</h2>
         <p>
           Yürürken gördüğünüz bir yeri{" "}
           <Link href="/iletisim?konu=nokta" title="Nokta önerme formunu aç">

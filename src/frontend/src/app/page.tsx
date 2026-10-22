@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { MapPin, ArrowRight, Map, ListChecks, Route, Images, Handshake, Search, Scale, RotateCcw } from "lucide-react";
 import { fetchSpotsResult, fetchSponsors } from "@/lib/data";
 import { siteStats, SITE } from "@/lib/content";
 import { formatKg } from "@/lib/status";
@@ -46,8 +46,10 @@ export default async function HomePage() {
           <div className="hero__cta">
             <Link href="/katil" className="btn btn--lime" title="Pazar temizliğine katıl">
               Pazar günü bize katıl
+              <ArrowRight size={18} aria-hidden />
             </Link>
             <Link href="/#harita" className="btn btn--light" title="Çalışma haritasına git">
+              <Map size={18} aria-hidden />
               Haritaya bak
             </Link>
           </div>
@@ -93,15 +95,15 @@ export default async function HomePage() {
 
       <section className="wrap sec" id="harita">
         <div className="sec__head">
-          <h2>Harita</h2>
+          <h2 className="sec__title"><span className="sec__ico"><Map size={20} aria-hidden /></span>Harita</h2>
           <p>{outage ? "Bağlantı gelince noktalar görünür." : "Bir noktaya dokun, kaydını aç."}</p>
         </div>
         <MapLoader spots={spots} center={SITE.city.center} zoom={SITE.city.zoom} />
       </section>
 
-      <Reveal as="section" className="wrap sec" id="calismalar">
+      <Reveal as="section" className="wrap sec reveal--up" id="calismalar">
         <div className="sec__head">
-          <h2>Çalışmalar</h2>
+          <h2 className="sec__title"><span className="sec__ico"><ListChecks size={20} aria-hidden /></span>Çalışmalar</h2>
           <p>En son çalışma en üstte.</p>
         </div>
         {outage ? (
@@ -109,7 +111,7 @@ export default async function HomePage() {
         ) : spots.length === 0 ? (
           <div className="empty">Henüz kayıt yok. İlk nokta bu Pazar.</div>
         ) : (
-          <div className="spots">
+          <div className="spots stagger is-in">
             {spots.map((s) => (
               <SpotCard key={s.slug} spot={s} />
             ))}
@@ -117,13 +119,13 @@ export default async function HomePage() {
         )}
       </Reveal>
 
-      <Reveal as="section" className="wrap sec" id="nasil">
+      <Reveal as="section" className="wrap sec reveal--up" id="nasil">
         <div className="sec__head">
-          <h2>Bir nokta nasıl ilerler</h2>
+          <h2 className="sec__title"><span className="sec__ico"><Route size={20} aria-hidden /></span>Bir nokta nasıl ilerler</h2>
         </div>
-        <div className="steps">
+        <div className="steps stagger is-in">
           <div className="step">
-            <div className="step__n">1</div>
+            <div className="step__ico"><Search size={20} aria-hidden /></div>
             <h3>Tespit</h3>
             <p>
               Nokta haritaya işlenir, aynı açıdan tekrar çekilebilecek bir &ldquo;önce&rdquo;
@@ -131,7 +133,7 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="step">
-            <div className="step__n">2</div>
+            <div className="step__ico"><Scale size={20} aria-hidden /></div>
             <h3>Temizlik</h3>
             <p>
               Pazar sabahı, eldiven ve maşayla. Atık türüne göre ayrıştırılır, kantarda tartılır,
@@ -139,7 +141,7 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="step">
-            <div className="step__n">3</div>
+            <div className="step__ico"><RotateCcw size={20} aria-hidden /></div>
             <h3>30 gün sonra kontrol</h3>
             <p>
               Aynı açıdan yeni fotoğraf. Nokta yeniden kirlendiyse nedeni araştırılır ve kalıcı
@@ -149,12 +151,12 @@ export default async function HomePage() {
         </div>
       </Reveal>
 
-      <Reveal as="section" className="wrap sec" id="bandirma">
+      <Reveal as="section" className="wrap sec reveal--zoom" id="bandirma">
         <div className="sec__head">
-          <h2>Neyi koruduğumuz</h2>
+          <h2 className="sec__title"><span className="sec__ico"><Images size={20} aria-hidden /></span>Neyi koruduğumuz</h2>
           <p>Bandırma, kıyısıyla ve yeşiliyle.</p>
         </div>
-        <div className="strip">
+        <div className="strip stagger is-in">
           {CITY_PHOTOS.map((p) => (
             <figure key={p.src}>
               <Image src={p.src} alt={p.alt} fill sizes="(min-width: 900px) 50vw, 100vw" />
@@ -164,9 +166,9 @@ export default async function HomePage() {
         </div>
       </Reveal>
 
-      <Reveal as="section" className="wrap sec" id="destek">
+      <Reveal as="section" className="wrap sec reveal--up" id="destek">
         <div className="sec__head">
-          <h2>Destekçiler</h2>
+          <h2 className="sec__title"><span className="sec__ico"><Handshake size={20} aria-hidden /></span>Destekçiler</h2>
           <p>Her katkı, katkı verdiği noktada görünür.</p>
         </div>
         {sponsors.length === 0 ? (
@@ -206,6 +208,7 @@ export default async function HomePage() {
           </div>
           <Link href="/katil" className="btn btn--lime" title="Pazar temizliğine katıl">
             Katılmak istiyorum
+            <ArrowRight size={18} aria-hidden />
           </Link>
         </div>
       </section>
