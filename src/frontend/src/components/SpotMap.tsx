@@ -25,6 +25,14 @@ const HEX: Record<string, string> = {
 const TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> katkıcıları';
 
+/** Odak yalnızca Bandırma: harita bu sınırların dışına kaydırılamaz, çok uzaklaşılamaz. */
+const CITY_BOUNDS: [[number, number], [number, number]] = [
+  [40.29, 27.85],
+  [40.42, 28.09],
+];
+const MIN_ZOOM = 12;
+const MAX_ZOOM = 18;
+
 function FitToSpots({ spots }: { spots: Spot[] }) {
   const map = useMap();
   useEffect(() => {
@@ -48,8 +56,17 @@ export default function SpotMap({
 }) {
   return (
     <>
-      <MapContainer center={center} zoom={zoom} scrollWheelZoom={false} style={{ height: "100%" }}>
-        <TileLayer url={TILE_URL} attribution={TILE_ATTR} />
+      <MapContainer
+        center={center}
+        zoom={zoom}
+        minZoom={MIN_ZOOM}
+        maxZoom={MAX_ZOOM}
+        maxBounds={CITY_BOUNDS}
+        maxBoundsViscosity={1}
+        scrollWheelZoom={false}
+        style={{ height: "100%" }}
+      >
+        <TileLayer url={TILE_URL} attribution={TILE_ATTR} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} bounds={CITY_BOUNDS} />
         <FitToSpots spots={spots} />
         {spots.map((s) => {
           const t = spotTotals(s);

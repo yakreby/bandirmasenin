@@ -63,6 +63,11 @@ html {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.15s !important;
+  }
+  /* Hareket yalnızca bizim animasyon öğelerimizde kapanır; Leaflet karoları transform ile konumlanır, ona dokunulmaz. */
+  html:not(.force-motion) .reveal,
+  html:not(.force-motion) .totop,
+  html:not(.force-motion) .off__panel {
     transform: none !important;
   }
 }
