@@ -28,6 +28,8 @@ mobile/         sonraki aşama (Expo)
 - **Form bağlamada sayı tuzağı:** sunucu kültürü tr-TR olabilir; `[FromForm] double` "40.3521"i 403521 yapar. Ondalıklı form alanı
   `string` alınır ve `InvariantCulture` ile çözülür (bkz. `TracesController.TryInvariant`). JSON gövdeler etkilenmez.
 - İlk yönetici: `Admin:Email` + `Admin:Password` (local.json) açılışta seed edilir; var olan kullanıcıya dokunmaz.
+- Fotoğraflar yalnız kendi çekimlerimiz: sitede kullanılan seçki `src/frontend/public/photos/bandirma/` (1920px, EXIF/GPS temiz).
+  Orijinaller kişisel arşivde. Başkasının fotoğrafı eklenmez.
 - Google ile giriş: `NEXT_PUBLIC_GOOGLE_CLIENT_ID` (Vercel) + `Google:ClientId` (API) aynı OAuth istemcisi; ikisi de boşsa düğme görünmez.
   GIS betiği accounts.google.com'dan yalnız giriş/kayıt sayfasında yüklenir (CDN kuralının ikinci bilinçli istisnası).
 

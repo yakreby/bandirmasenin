@@ -11,18 +11,19 @@ import Reveal from "@/components/Reveal";
 
 /** Hero arka planı: ilk kare öncelikli yüklenir, diğerleri sırayla geçer. */
 const HERO_SLIDES = [
-  { src: "/photos/city/bridge-lighthouse.jpg", alt: "Bandırma sahili: köprü, fener ve sahil parkı", caption: "Sahil, köprü ve fener" },
-  { src: "/photos/city/shore-sunset.jpg", alt: "Bandırma kayalık kıyısında gün batımı", caption: "Kayalık kıyı, gün batımı" },
-  { src: "/photos/city/camlik.jpg", alt: "Çamlık'ta çam ağaçları arasında yürüyüş yolu", caption: "Çamlık" },
-  { src: "/photos/city/son-kursun.jpg", alt: "Son Kurşun Anıtı ve Marmara Denizi", caption: "Son Kurşun Anıtı" },
-  { src: "/photos/city/bridge-sunset.jpg", alt: "Gün batımında köprü ve balıkçı tekneleri", caption: "Köprü, akşam" },
+  { src: "/photos/bandirma/dsc00228-2.jpg", alt: "Bandırma sahilinde asma yaya köprüsü, bulutlu sabah", caption: "Sahil köprüsü" },
+  { src: "/photos/bandirma/20260810-101250.jpg", alt: "Bandırma Gar binası, açık mavi gökyüzü", caption: "Gar binası" },
+  { src: "/photos/bandirma/dsc00207-2.jpg", alt: "Bandırma kayalık kıyısı ve Marmara Denizi", caption: "Kayalık kıyı" },
+  { src: "/photos/bandirma/dsc00409-edited.jpg", alt: "Gün batımında Bandırma limanı ve vinçler", caption: "Liman, gün batımı" },
+  { src: "/photos/bandirma/dsc01212.jpg", alt: "Gün batımında balıkçı tekneleri ve liman", caption: "Balıkçı barınağı, akşam" },
 ];
 
 const CITY_PHOTOS = [
-  { src: "/photos/city/shore-sunset.jpg", alt: "Bandırma kayalık kıyısında gün batımı", caption: "Kayalık kıyı, gün batımı" },
-  { src: "/photos/city/son-kursun.jpg", alt: "Son Kurşun Anıtı ve Marmara Denizi", caption: "Son Kurşun Anıtı" },
-  { src: "/photos/city/camlik.jpg", alt: "Çamlık'ta çam ağaçları arasında yürüyüş yolu", caption: "Çamlık" },
-  { src: "/photos/city/bridge-sunset.jpg", alt: "Gün batımında köprü ve balıkçı tekneleri", caption: "Köprü, akşam" },
+  { src: "/photos/bandirma/dsc00231-2.jpg", alt: "Bandırma sahil yürüyüş yolu ve şehir yazısı", caption: "Sahil yürüyüş yolu" },
+  { src: "/photos/bandirma/dsc01307-2-e.jpg", alt: "Bayraklarla süslü meydan, yağmurlu gece", caption: "Merkez, yağmurlu gece" },
+  { src: "/photos/bandirma/dsc01882.jpg", alt: "Edincik'te eski, yıpranmış ahşap ev", caption: "Edincik, eski ahşap ev" },
+  { src: "/photos/bandirma/dsc01795.jpg", alt: "Fırtına sonrası kıyıda gün batımı ve yansıması", caption: "Fırtına sonrası kıyı" },
+  { src: "/photos/bandirma/dsc00272-2.jpg", alt: "Kaldırımda objektife bakan sarı sokak kedisi", caption: "Sokağın sahipleri" },
 ];
 
 export default async function HomePage() {
